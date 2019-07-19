@@ -12,14 +12,14 @@ import java.math.BigDecimal;
  * @author wiljo912
  */
 public class Product {
-    private String productID;
+    private Integer productID;
     private  String name;
     private  String description;
     private String category;
     private BigDecimal listPrice;
     private  BigDecimal quantityInStock;
 
-    public Product(String name, String description, String category, BigDecimal listPrice, BigDecimal quantityInStock) {
+    public Product(Integer ID, String name, String description, String category, BigDecimal listPrice, BigDecimal quantityInStock) {
         this.productID = productID;
         this.name = name;
         this.description = description;
@@ -28,11 +28,11 @@ public class Product {
         this.quantityInStock = quantityInStock;
     }
 
-    public String getProductID() {
+    public Integer getProductID() {
         return productID;
     }
 
-    public void setProductID(String productId) {
+    public void setProductID(Integer productId) {
         this.productID = productId;
     }
 
@@ -74,6 +74,11 @@ public class Product {
 
     public void setQuantityInStock(BigDecimal quantityInStock) {
         this.quantityInStock = quantityInStock;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" + "productID=" + productID + ", name=" + name + ", description=" + description + ", category=" + category + ", listPrice=" + listPrice + ", quantityInStock=" + quantityInStock + '}';
     }
     
     
