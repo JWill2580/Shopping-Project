@@ -158,16 +158,16 @@ public class ProductDialog extends javax.swing.JDialog {
     }//GEN-LAST:event_txtCategoryActionPerformed
 
     private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
-        Integer i = new Integer(txtID.getText());
+        Integer identification = new Integer(txtID.getText());
         String name = txtName.getText();
         String description = txtDescription.getText();
         String category = txtCategory.getText();
         BigDecimal listPrice = new BigDecimal(txtPrice.getText());
-        BigDecimal quantity = new BigDecimal(qis.getText());
+        BigDecimal quantity = new BigDecimal(txtQuantityInStock.getText());
         
-        Product product1 = 
-                new Product(i, name, description, category, listPrice, quantity);
-        System.out.println(product1);
+        Product product1 = new Product(identification, name, description, category, listPrice, quantity);
+        
+        System.out.println(product1.toString());
     }//GEN-LAST:event_saveActionPerformed
 
     private void cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelActionPerformed
