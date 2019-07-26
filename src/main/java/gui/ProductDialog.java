@@ -5,6 +5,7 @@
  */
 package gui;
 
+import dao.ProductCollectionDAO;
 import domain.Product;
 import java.math.BigDecimal;
 
@@ -13,7 +14,8 @@ import java.math.BigDecimal;
  * @author wiljo912
  */
 public class ProductDialog extends javax.swing.JDialog {
-
+    ProductCollectionDAO dao = new ProductCollectionDAO();
+    
     /**
      * Creates new form ProductDialog
      */
@@ -174,6 +176,9 @@ public class ProductDialog extends javax.swing.JDialog {
         product1.setQuantityInStock(quantity);
 
         System.out.println(product1);
+
+        dao.saveProduct(product1);
+        this.dispose();
     }//GEN-LAST:event_saveActionPerformed
 
     private void cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelActionPerformed

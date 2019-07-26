@@ -7,23 +7,24 @@ package dao;
 import domain.Product;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 
 /**
  *
  * @author wiljo912
  */
-public class ProductCollection {
+public class ProductCollectionDAO {
     private static Collection<Product> products = new ArrayList<Product>();
     
-    public void addProduct(Product product){
+    public void saveProduct(Product product){
         this.products.add(product);
     }
-    
-     public void removeProduct(Product product){
+     
+     public void deleteProduct(Product product){
         this.products.remove(product);
     }
 
-    public static Collection<Product> getProducts() {
-        return products;
+    public Collection<Product> getProducts() {
+        return products; 
     }
 }
