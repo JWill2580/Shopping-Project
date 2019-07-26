@@ -92,7 +92,9 @@ public class Mainmenu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void viewButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewButtonActionPerformed
-        // TODO add your handling code here:
+        ViewProducts dialog = new ViewProducts(this, true);
+        dialog.setLocationRelativeTo(this);
+        dialog.setVisible(true);
     }//GEN-LAST:event_viewButtonActionPerformed
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed

@@ -167,17 +167,17 @@ public class ProductDialog extends javax.swing.JDialog {
         BigDecimal listPrice = new BigDecimal(txtPrice.getText());
         BigDecimal quantity = new BigDecimal(txtQuantityInStock.getText());
         
-        Product product1 = new Product();
-        product1.setProductID(identification);
-        product1.setName(name);
-        product1.setDescription(description);
-        product1.setCategory(category);
-        product1.setListPrice(listPrice);
-        product1.setQuantityInStock(quantity);
+        Product product = new Product();
+        product.setProductID(identification);
+        product.setName(name);
+        product.setDescription(description);
+        product.setCategory(category);
+        product.setListPrice(listPrice);
+        product.setQuantityInStock(quantity);
 
-        System.out.println(product1);
+        System.out.println(product);
 
-        dao.saveProduct(product1);
+        dao.saveProduct(product);
         this.dispose();
     }//GEN-LAST:event_saveActionPerformed
 
