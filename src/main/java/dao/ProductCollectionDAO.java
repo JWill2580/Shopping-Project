@@ -8,13 +8,14 @@ import domain.Product;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 
 /**
  *
  * @author wiljo912
  */
 public class ProductCollectionDAO {
-    private static Collection<Product> products = new ArrayList<Product>();
+    private static Collection<Product> products = new HashSet<>();
     
     public void saveProduct(Product product){
         this.products.add(product);

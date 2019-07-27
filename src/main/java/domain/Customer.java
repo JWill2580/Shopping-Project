@@ -10,7 +10,7 @@ package domain;
  * @author wiljo912
  */
 public class Customer {
-    private static Integer customerID = 0;
+    private static Integer customerID;
     private  String username;
     private  String firstname;
     private  String surname;
@@ -19,7 +19,6 @@ public class Customer {
     private  String shipping;
 
     public Customer(String username, String firstname, String surname, String password, String email, String shipping) {
-        this.customerID++;
         this.username = username;
         this.firstname = firstname;
         this.surname = surname;
@@ -27,10 +26,8 @@ public class Customer {
         this.email = email;
         this.shipping = shipping;
     }
-    
-    
 
-    public Integer getCustomerID() {
+    public static Integer getCustomerID() {
         return customerID;
     }
 

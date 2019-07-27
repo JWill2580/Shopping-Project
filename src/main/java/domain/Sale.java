@@ -14,13 +14,12 @@ import java.util.ArrayList;
  * @author wiljo912
  */
 public class Sale {
-    private static Integer saleID = 0;
+    private static Integer saleID;
     private LocalDate date;
     private String status;
     private ArrayList<SaleItem> saleItems = new ArrayList<SaleItem>();
 
-    public Sale(Integer saleID, LocalDate date, String status) {
-        this.saleID++;
+    public Sale(LocalDate date, String status) {
         this.date = date;
         this.status = status;
     }
