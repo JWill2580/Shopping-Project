@@ -1,2 +1,46 @@
-@startuml
+@startuml product-editor-sequence-diagram
+
+skinparam guillemet false
+skinparam classAttributeIconSize 0
+skinparam linetype ortho
+skinparam style strictuml
+skinparam sequenceParticipant underline
+hide circle
+
+title Product-Editor view product process
+
+actor "Staff" as staff
+participant "Administration" as admin
+
+staff -> admin: runs program
+activate admin
+
+create "Main Screen" as main <<GUI>> 
+admin -> main: launch main menu gui
+deactivate admin
+activate main
+main --> staff: displays main menu
+
+staff -> main: <<UI event>> clicks view product
+
+create "View Dialog" as dialog
+
+main -> dialog: launch view dialog
+deactivate main
+participant "DAO" as dao
+activate dialog
+dialog -> dao: getProducts()
+activate dao
+loop for every product
+    dialog <-- dao: product.toString()
+deactivate dao
+
+staff <-- dialog: display list of product
+end
+
+
+staff -> dialog: <<UI event>> clicks close
+dialog -> dialog: dispose()
+destroy dialog
+
 @enduml
