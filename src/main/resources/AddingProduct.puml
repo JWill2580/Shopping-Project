@@ -1,0 +1,58 @@
+@startuml product-editor-sequence-diagram
+
+skinparam guillemet false
+skinparam classAttributeIconSize 0
+skinparam linetype ortho
+skinparam style strictuml
+skinparam sequenceParticipant underline
+hide circle
+
+title Product-Editor add product process
+
+actor "Staff" as staff
+participant "Administration" as admin
+
+
+staff -> admin: runs program
+activate admin
+
+create "Main Screen" as main <<GUI>> 
+admin -> main: launch main menu gui
+deactivate admin
+activate main
+main --> staff: displays main menu
+
+staff -> main: <<UI event>> clicks add product
+
+create "add Dialog" as dialog <<Form>>
+main -> dialog: launch view dialog
+deactivate main
+activate dialog
+staff <-- dialog: displays dialog frame
+
+staff -> dialog: inputs product details
+
+alt saves product
+    staff -> dialog: <<UI event>> clicks save product
+    
+    dialog -> dialog: getProduct() : id, name, description, category, price, quantity
+    create "Product" as product <<Domain>> 
+    dialog -> product: new Product()
+    activate product
+    dialog <-- product: instance created
+    deactivate product
+    participant "DAO" as dao
+    dialog -> dao: add product(instance)
+    activate dao
+    dialog <-- dao: added
+    deactivate dao
+    
+    dialog -> dialog: dispose()
+    destroy dialog
+else doesnt want to save
+    staff -> dialog: <<UI event>> clicks cancel
+    dialog -> dialog: dispose()
+    destroy dialog
+end
+
+@enduml
