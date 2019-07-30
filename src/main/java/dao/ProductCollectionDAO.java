@@ -17,6 +17,7 @@ import java.util.HashSet;
 public class ProductCollectionDAO {
     private static Collection<Product> products = new HashSet<>();
     
+    
     public void saveProduct(Product product){
         this.products.add(product);
     }
@@ -27,5 +28,13 @@ public class ProductCollectionDAO {
 
     public Collection<Product> getProducts() {
         return products; 
+    }
+    
+    public Collection<String> getCategories(){
+        Collection<String> categories = new HashSet<>();
+        for(Product p : products){
+            categories.add(p.getCategory());
+        }
+        return categories;
     }
 }

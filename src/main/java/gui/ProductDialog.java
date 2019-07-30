@@ -7,6 +7,7 @@ package gui;
 
 import dao.ProductCollectionDAO;
 import domain.Product;
+import helpers.SimpleListModel;
 import java.math.BigDecimal;
 
 /**
@@ -14,7 +15,8 @@ import java.math.BigDecimal;
  * @author wiljo912
  */
 public class ProductDialog extends javax.swing.JDialog {
-    ProductCollectionDAO dao = new ProductCollectionDAO();
+    private ProductCollectionDAO dao = new ProductCollectionDAO();
+    private SimpleListModel comboModel = new SimpleListModel();
     
     /**
      * Creates new form ProductDialog
@@ -22,10 +24,10 @@ public class ProductDialog extends javax.swing.JDialog {
     public ProductDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        for(Product d : dao.getProducts()){
-            txtCategory.addItem(d.getCategory());
-        }
-    }
+        txtCategory.setEditable(true);
+        comboModel.updateItems(dao.getCategories());
+        txtCategory.setModel(comboModel);
+ }
 
     /**
      * This method is called from within the constructor to initialize the form.
