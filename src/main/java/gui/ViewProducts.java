@@ -26,7 +26,7 @@ public class ViewProducts extends javax.swing.JDialog {
         initComponents();
         Collection collection = dao.getProducts(); 
         myModel.updateItems(collection);
-        comboBox.setModel(myModel);    
+        productList.setModel(myModel);    
     }
 
     /**
@@ -40,18 +40,18 @@ public class ViewProducts extends javax.swing.JDialog {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jScrollPane2 = new javax.swing.JScrollPane();
-        comboBox = new javax.swing.JList<>();
+        productList = new javax.swing.JList<>();
         jLabel1 = new javax.swing.JLabel();
         closeButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        comboBox.setModel(new javax.swing.AbstractListModel<String>() {
+        productList.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane2.setViewportView(comboBox);
+        jScrollPane2.setViewportView(productList);
 
         jScrollPane1.setViewportView(jScrollPane2);
 
@@ -146,9 +146,9 @@ public class ViewProducts extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton closeButton;
-    private javax.swing.JList<String> comboBox;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JList<String> productList;
     // End of variables declaration//GEN-END:variables
 }

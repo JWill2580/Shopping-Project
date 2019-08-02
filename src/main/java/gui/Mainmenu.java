@@ -98,7 +98,7 @@ public class Mainmenu extends javax.swing.JFrame {
     }//GEN-LAST:event_viewButtonActionPerformed
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
-        ProductDialog dialog = new ProductDialog(this, true);
+        AddProducts dialog = new AddProducts(this, true);
         dialog.setLocationRelativeTo(this);
         dialog.setVisible(true);
     }//GEN-LAST:event_addButtonActionPerformed
