@@ -21,6 +21,7 @@ import javax.swing.ListModel;
 public class ViewProducts extends javax.swing.JDialog {
     ProductCollectionDAO dao = new ProductCollectionDAO();
     SimpleListModel myModel = new SimpleListModel();
+    SimpleListModel cmbModel = new SimpleListModel();
     /**
      * Creates new form ViewProducts
      */
@@ -28,7 +29,10 @@ public class ViewProducts extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         myModel.updateItems(dao.getProducts());
-        productList.setModel(myModel);    
+        productList.setModel(myModel);   
+        
+        cmbModel.updateItems(dao.getCategories());
+        cmbFilterCategory.setModel(cmbModel);
     }
 
     /**
@@ -49,8 +53,10 @@ public class ViewProducts extends javax.swing.JDialog {
         jLabel2 = new javax.swing.JLabel();
         txtSearchID = new javax.swing.JTextField();
         searchButton = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cmbFilterCategory = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jScrollPane4 = new javax.swing.JScrollPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -83,9 +89,14 @@ public class ViewProducts extends javax.swing.JDialog {
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbFilterCategory.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbFilterCategory.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbFilterCategoryActionPerformed(evt);
+            }
+        });
 
-        jLabel3.setText("jLabel3");
+        jLabel3.setText("Category Filter:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -114,7 +125,7 @@ public class ViewProducts extends javax.swing.JDialog {
                                     .addComponent(jLabel3))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(cmbFilterCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(txtSearchID, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -134,7 +145,7 @@ public class ViewProducts extends javax.swing.JDialog {
                     .addComponent(searchButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbFilterCategory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -170,12 +181,15 @@ public class ViewProducts extends javax.swing.JDialog {
     }//GEN-LAST:event_deleteButtonActionPerformed
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
-        
-        String id = txtSearchID.getSelectedText();     
-        //Collection<Product> values  = dao.productsMap.values();
-        myModel.updateItems(dao.getThroughID(id));//has to take a collection
-        productList.setModel(myModel);
+        String txt = txtSearchID.getSelectedText();
+        myModel.updateItems(dao.getThroughID(txt));//has to take a collection
+
     }//GEN-LAST:event_searchButtonActionPerformed
+
+    private void cmbFilterCategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbFilterCategoryActionPerformed
+        String cmb = (String)cmbFilterCategory.getSelectedItem();
+        myModel.updateItems(dao.getThroughCategory(cmb));
+    }//GEN-LAST:event_cmbFilterCategoryActionPerformed
 
     /**
      * @param args the command line arguments
@@ -221,13 +235,15 @@ public class ViewProducts extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton closeButton;
+    private javax.swing.JComboBox<String> cmbFilterCategory;
     private javax.swing.JButton deleteButton;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JList<Product> productList;
     private javax.swing.JButton searchButton;
     private javax.swing.JTextField txtSearchID;
