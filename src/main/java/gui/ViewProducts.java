@@ -181,8 +181,10 @@ public class ViewProducts extends javax.swing.JDialog {
     }//GEN-LAST:event_deleteButtonActionPerformed
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
-        String txt = txtSearchID.getSelectedText();
-        myModel.updateItems(dao.getThroughID(txt));//has to take a collection
+        String txt = txtSearchID.getText();
+        Product p = dao.getThroughID(txt);
+        System.out.println(p);
+        myModel.updateItems(p);//has to take a collection
 
     }//GEN-LAST:event_searchButtonActionPerformed
 
