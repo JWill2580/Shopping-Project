@@ -51,14 +51,15 @@ public class ManageProducts implements ProductsCollectionDAOInterface{
             String id = rs.getString("id");
             String name = rs.getString("name");
             String description = rs.getString("description");
+            String category = rs.getString("category");
             BigDecimal listprice = rs.getBigDecimal("listprice");
-            BigDecimal quanitityInStock = rs.getBigDecimal("quantityInStock");
+            BigDecimal quantityInStock = rs.getBigDecimal("quantityInStock");
 
             // use the data to create a student object
-            Product s = new Product(id, name, description, mark);
+            Product product = new Product(id, name, description, category, listprice, quantityInStock);
 
             // and put it in the collection
-            products.add(s);
+            products.add(product);
         }
 
         return products;
