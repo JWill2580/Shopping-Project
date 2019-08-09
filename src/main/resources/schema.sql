@@ -9,7 +9,7 @@
  */
 
 create table Product (
-    Product_ID integer,
+    Product_ID varchar(50) not null,
     Product_Name varchar(50) not null,
     Description varchar(50) not null,
     Category varchar(50) not null,
