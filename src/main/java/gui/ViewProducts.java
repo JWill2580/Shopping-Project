@@ -5,6 +5,7 @@
  */
 package gui;
 
+import dao.DbManageProducts;
 import dao.ProductCollectionDAO;
 import domain.Product;
 import helpers.SimpleListModel;
@@ -19,19 +20,20 @@ import javax.swing.ListModel;
  * @author wiljo912
  */
 public class ViewProducts extends javax.swing.JDialog {
-    ProductCollectionDAO dao = new ProductCollectionDAO();
+    //ProductCollectionDAO dao = new ProductCollectionDAO();
     SimpleListModel myModel = new SimpleListModel();
     SimpleListModel cmbModel = new SimpleListModel();
+    DbManageProducts jdbcDAO = new DbManageProducts();
     /**
      * Creates new form ViewProducts
      */
     public ViewProducts(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        myModel.updateItems(dao.getProducts());
+        myModel.updateItems(jdbcDAO.getProducts());
         productList.setModel(myModel);   
         
-        cmbModel.updateItems(dao.getCategories());
+        cmbModel.updateItems(jdbcDAO.getCategories());
         cmbFilterCategory.setModel(cmbModel);
     }
 
@@ -173,8 +175,8 @@ public class ViewProducts extends javax.swing.JDialog {
         int result = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this product?");
         if (result == JOptionPane.YES_OPTION) {
             Product obj = productList.getSelectedValue();
-            dao.deleteProduct(obj);
-            myModel.updateItems(dao.getProducts());
+            jdbcDAO.deleteProduct(obj);
+            myModel.updateItems(jdbcDAO.getProducts());
             productList.setModel(myModel);
         }
 
@@ -182,7 +184,7 @@ public class ViewProducts extends javax.swing.JDialog {
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
         String txt = txtSearchID.getText();
-        Product p = dao.getThroughID(txt);
+        Product p = jdbcDAO.getThroughID(txt);
         System.out.println(p);
         myModel.updateItems(p);//has to take a collection
 
@@ -190,7 +192,7 @@ public class ViewProducts extends javax.swing.JDialog {
 
     private void cmbFilterCategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbFilterCategoryActionPerformed
         String cmb = (String)cmbFilterCategory.getSelectedItem();
-        myModel.updateItems(dao.getThroughCategory(cmb));
+        myModel.updateItems(jdbcDAO.getThroughCategory(cmb));
     }//GEN-LAST:event_cmbFilterCategoryActionPerformed
 
     /**

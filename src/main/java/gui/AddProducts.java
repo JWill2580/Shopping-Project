@@ -5,6 +5,7 @@
  */
 package gui;
 
+import dao.DbManageProducts;
 import dao.ProductCollectionDAO;
 import domain.Product;
 import helpers.SimpleListModel;
@@ -15,8 +16,9 @@ import java.math.BigDecimal;
  * @author wiljo912
  */
 public class AddProducts extends javax.swing.JDialog {
-    private ProductCollectionDAO dao = new ProductCollectionDAO();
+    //private ProductCollectionDAO dao = new ProductCollectionDAO();
     private SimpleListModel comboModel = new SimpleListModel();
+    private DbManageProducts jdbcDAO = new DbManageProducts();
     
     /**
      * Creates new form ProductDialog
@@ -24,7 +26,7 @@ public class AddProducts extends javax.swing.JDialog {
     public AddProducts(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        comboModel.updateItems(dao.getCategories());
+        comboModel.updateItems(jdbcDAO.getCategories());
         txtCategory.setModel(comboModel);
         txtCategory.setEditable(true);
  }
@@ -175,7 +177,7 @@ public class AddProducts extends javax.swing.JDialog {
 
         System.out.println(product);
 
-        dao.saveProduct(product);
+        jdbcDAO.saveProduct(product);
         this.dispose();
     }//GEN-LAST:event_saveActionPerformed
 
