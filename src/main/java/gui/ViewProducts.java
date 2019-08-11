@@ -186,7 +186,7 @@ public class ViewProducts extends javax.swing.JDialog {
         String txt = txtSearchID.getText();
         Product p = jdbcDAO.getThroughID(txt);
         System.out.println(p);
-        myModel.updateItems(p);//has to take a collection
+        myModel.updateItems(p);
 
     }//GEN-LAST:event_searchButtonActionPerformed
 

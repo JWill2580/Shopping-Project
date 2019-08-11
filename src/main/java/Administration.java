@@ -1,4 +1,5 @@
 
+import dao.DbManageProducts;
 import gui.Mainmenu;
 
 /*
@@ -12,8 +13,9 @@ import gui.Mainmenu;
  * @author wiljo912
  */
 public class Administration {
+    private static DbManageProducts dao = new DbManageProducts();//possible errors
     public static void main(String[] args) {
-        Mainmenu frame = new Mainmenu();
+        Mainmenu frame = new Mainmenu(dao);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
 

@@ -5,17 +5,21 @@
  */
 package gui;
 
+import dao.ProductsCollectionDAOInterface;
+
 /**
  *
  * @author wiljo912
  */
 public class Mainmenu extends javax.swing.JFrame {
+    private final ProductsCollectionDAOInterface jdbcDAO;
 
     /**
      * Creates new form Mainmenu
      */
-    public Mainmenu() {
+    public Mainmenu(ProductsCollectionDAOInterface jdbcDAO) {
         initComponents();
+        this.jdbcDAO= jdbcDAO;
     }
 
     /**
@@ -98,7 +102,7 @@ public class Mainmenu extends javax.swing.JFrame {
     }//GEN-LAST:event_viewButtonActionPerformed
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
-        AddProducts dialog = new AddProducts(this, true);
+        AddProducts dialog = new AddProducts(this, true, jdbcDAO);
         dialog.setLocationRelativeTo(this);
         dialog.setVisible(true);
     }//GEN-LAST:event_addButtonActionPerformed

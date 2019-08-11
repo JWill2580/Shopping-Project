@@ -9,6 +9,6 @@ dependencies {
     testImplementation group: "junit", name: "junit", version: "4.+"
     implementation group: 'com.google.guava', name: 'guava', version: '28.0-jre'
     implementation group: 'com.h2database', name: 'h2', version: '1.4.+'
-
+    implementation group: 'net.sf.oval', name: 'oval', version: '1.90'
 }
 mainClassName = "shopping.Administration"

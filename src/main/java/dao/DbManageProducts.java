@@ -33,11 +33,14 @@ public class DbManageProducts implements ProductsCollectionDAOInterface{
     
     @Override
     public void saveProduct(Product aProduct) {
-    String statement = "merge into PRODUCT(PRODUCT_ID, PRODUCT_NAME, DESCRIPTION, CATEGORY, LIST_PRICE, QUANTITY_IN_STOCK) values(?,?,?,?,?,?)";    
+    String statement = "merge into PRODUCT(PRODUCT_ID, PRODUCT_NAME, "
+            + "DESCRIPTION, CATEGORY, LIST_PRICE, QUANTITY_IN_STOCK) "
+            + "values(?,?,?,?,?,?)";    
         
     try (
         // get connection to database
-        Connection dbCon = DbConnection.getConnection(DbConnection.getDefaultConnectionUri());
+        Connection dbCon = DbConnection.getConnection(
+                DbConnection.getDefaultConnectionUri());
 
         // create the statement
         PreparedStatement stmt = dbCon.prepareStatement(statement);
@@ -54,7 +57,7 @@ public class DbManageProducts implements ProductsCollectionDAOInterface{
 
     } catch (SQLException ex) {  // we are forced to catch SQLException
         // don't let the SQLException leak from our DAO encapsulation
-        throw new RuntimeException(ex);
+        throw new DAOException(ex.getMessage(), ex);
     }
 }
     @Override
@@ -62,7 +65,8 @@ public class DbManageProducts implements ProductsCollectionDAOInterface{
         String statement = "delete from PRODUCT where PRODUCT_ID = ?";
         try (
         // get a connection to the database
-        Connection dbCon = DbConnection.getConnection(DbConnection.getDefaultConnectionUri());
+        Connection dbCon = DbConnection.getConnection(
+                DbConnection.getDefaultConnectionUri());
 
          PreparedStatement stmt = dbCon.prepareStatement(statement);
     ) {
@@ -73,10 +77,8 @@ public class DbManageProducts implements ProductsCollectionDAOInterface{
 
 
     } catch (SQLException ex) {
-        throw new RuntimeException(ex);
+        throw new DAOException(ex.getMessage(), ex);
     }
-
-//throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     @Override
@@ -84,7 +86,8 @@ public class DbManageProducts implements ProductsCollectionDAOInterface{
         String statement = "select * from PRODUCT where CATEGORY = ?";
    try (
         // get connection to database
-        Connection connection = DbConnection.getConnection(DbConnection.getDefaultConnectionUri());
+        Connection connection = DbConnection.getConnection(
+                DbConnection.getDefaultConnectionUri());
 
         // create the statement
         PreparedStatement stmt = connection.prepareStatement(statement);
@@ -106,15 +109,15 @@ public class DbManageProducts implements ProductsCollectionDAOInterface{
             BigDecimal quantityInStock = rs.getBigDecimal("QUANTITY_IN_STOCK");
 
             // use the data to create a student object
-            Product product = new Product(id, name, description, category, listprice, quantityInStock);
+            Product product = new Product(id, name, description, 
+                    category, listprice, quantityInStock);
             // and put it in the collection
             products.add(product);
            
         } 
          return products;
-    } catch (SQLException ex) {  // we are forced to catch SQLException
-        // don't let the SQLException leak from our DAO encapsulation
-        throw new RuntimeException(ex);
+    } catch (SQLException ex) {  
+        throw new DAOException(ex.getMessage(), ex);
     }
         
 }
@@ -123,7 +126,8 @@ public class DbManageProducts implements ProductsCollectionDAOInterface{
         String statement = "select * from PRODUCT where PRODUCT_ID = ?";
     try (
         // get connection to database
-        Connection connection = DbConnection.getConnection(DbConnection.getDefaultConnectionUri());
+        Connection connection = DbConnection.getConnection(
+                DbConnection.getDefaultConnectionUri());
 
         // create the statement
         PreparedStatement stmt = connection.prepareStatement(statement);
@@ -143,7 +147,8 @@ public class DbManageProducts implements ProductsCollectionDAOInterface{
             BigDecimal listprice = rs.getBigDecimal("LIST_PRICE");
             BigDecimal quantityInStock = rs.getBigDecimal("QUANTITY_IN_STOCK");
             
-            return new Product(id, name, description, category, listprice, quantityInStock);
+            return new Product(id, name, description, 
+                    category, listprice, quantityInStock);
 
         } else {
             // no product matches given category so return null
@@ -152,7 +157,7 @@ public class DbManageProducts implements ProductsCollectionDAOInterface{
 
     } catch (SQLException ex) {  // we are forced to catch SQLException
         // don't let the SQLException leak from our DAO encapsulation
-        throw new RuntimeException(ex);
+        throw new DAOException(ex.getMessage(), ex);
     }
 }
     
@@ -162,7 +167,8 @@ public class DbManageProducts implements ProductsCollectionDAOInterface{
         String statement = "select * from PRODUCT order by PRODUCT_ID";
     try (
         // get a connection to the database
-        Connection dbCon = DbConnection.getConnection(DbConnection.getDefaultConnectionUri());
+        Connection dbCon = DbConnection.getConnection(
+                DbConnection.getDefaultConnectionUri());
 
         // create the statement
         PreparedStatement stmt = dbCon.prepareStatement(statement);
@@ -184,7 +190,8 @@ public class DbManageProducts implements ProductsCollectionDAOInterface{
             BigDecimal quantityInStock = rs.getBigDecimal("QUANTITY_IN_STOCK");
             
             // use the data to create a student object
-            Product product = new Product(id, name, description, category, listprice, quantityInStock);
+            Product product = new Product(id, name, description, 
+                    category, listprice, quantityInStock);
             // and put it in the collection
             products.add(product);
         }
@@ -192,7 +199,7 @@ public class DbManageProducts implements ProductsCollectionDAOInterface{
         return products;
 
     } catch (SQLException ex) {
-        throw new RuntimeException(ex);
+        throw new DAOException(ex.getMessage(), ex);
     }
 }
     @Override
@@ -200,7 +207,8 @@ public class DbManageProducts implements ProductsCollectionDAOInterface{
         String statement = "select distinct CATEGORY from PRODUCT order by CATEGORY";
     try (
         // get a connection to the database
-        Connection dbCon = DbConnection.getConnection(DbConnection.getDefaultConnectionUri());
+        Connection dbCon = DbConnection.getConnection(
+                DbConnection.getDefaultConnectionUri());
 
         // create the statement
         PreparedStatement stmt = dbCon.prepareStatement(statement);
@@ -223,7 +231,7 @@ public class DbManageProducts implements ProductsCollectionDAOInterface{
         return productCategories;
 
     } catch (SQLException ex) {
-        throw new RuntimeException(ex);
+        throw new DAOException(ex.getMessage(), ex);
     }
 }
 }

@@ -9,9 +9,9 @@
  */
 
 create table Product (
-    Product_ID varchar(50) not null,
+    Product_ID varchar(50),
     Product_Name varchar(50) not null,
-    Description varchar(50) not null,
+    Description varchar(50),
     Category varchar(50) not null,
     List_Price decimal(5, 2) not null,
     Quantity_In_Stock decimal(5, 2) not null,

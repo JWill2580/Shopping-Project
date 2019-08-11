@@ -5,11 +5,17 @@
  */
 package gui;
 
+import dao.DAOException;
 import dao.DbManageProducts;
 import dao.ProductCollectionDAO;
+import dao.ProductsCollectionDAOInterface;
 import domain.Product;
 import helpers.SimpleListModel;
 import java.math.BigDecimal;
+import javax.swing.JOptionPane;
+import net.sf.oval.ConstraintViolation;
+import net.sf.oval.Validator;
+import net.sf.oval.exception.ConstraintsViolatedException;
 
 /**
  *
@@ -18,14 +24,16 @@ import java.math.BigDecimal;
 public class AddProducts extends javax.swing.JDialog {
     //private ProductCollectionDAO dao = new ProductCollectionDAO();
     private SimpleListModel comboModel = new SimpleListModel();
-    private DbManageProducts jdbcDAO = new DbManageProducts();
+    //private DbManageProducts jdbcDAO = new DbManageProducts();
+    private final ProductsCollectionDAOInterface jdbcDAO;
     
     /**
      * Creates new form ProductDialog
      */
-    public AddProducts(java.awt.Frame parent, boolean modal) {
+    public AddProducts(java.awt.Frame parent, boolean modal, ProductsCollectionDAOInterface jdbcDAO) {
         super(parent, modal);
         initComponents();
+        this.jdbcDAO = jdbcDAO;
         comboModel.updateItems(jdbcDAO.getCategories());
         txtCategory.setModel(comboModel);
         txtCategory.setEditable(true);
@@ -160,6 +168,7 @@ public class AddProducts extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveActionPerformed
+       try{
         String identification = txtID.getText();
         String name = txtName.getText();
         String description = txtDescription.getText();
@@ -177,8 +186,29 @@ public class AddProducts extends javax.swing.JDialog {
 
         System.out.println(product);
 
+        new Validator().assertValid(product);
         jdbcDAO.saveProduct(product);
         this.dispose();
+       } catch (NumberFormatException f){
+           JOptionPane.showMessageDialog(this,
+                   "You have entered a price or quantity that is not a valid number.",
+                   "Input Error", JOptionPane.ERROR_MESSAGE);
+       } catch (ConstraintsViolatedException ex) {
+            // get the violated constraints from the exception
+            ConstraintViolation[] violations = ex.getConstraintViolations();
+            // create a nice error message for the user
+            String msg = "Please fix the following input problems:";
+            for (ConstraintViolation cv : violations) {
+                msg += "\n •" + cv.getMessage();
+            }
+            // display the message to the user
+            JOptionPane.showMessageDialog(this, msg, "Input Error",
+                    JOptionPane.ERROR_MESSAGE);
+        } catch (DAOException ex){
+        String msg = "Please fix the following input problems:\n" + ex.getMessage();
+        JOptionPane.showMessageDialog(this, msg, "DAO Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_saveActionPerformed
 
     private void cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelActionPerformed
@@ -216,7 +246,7 @@ public class AddProducts extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                AddProducts dialog = new AddProducts(new javax.swing.JFrame(), true);
+                AddProducts dialog = new AddProducts(new javax.swing.JFrame(), true, jdbcDAO);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
