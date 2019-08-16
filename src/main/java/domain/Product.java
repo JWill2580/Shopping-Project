@@ -6,8 +6,8 @@
 package domain;
 
 import java.math.BigDecimal;
-import javax.validation.constraints.NotBlank;
 import net.sf.oval.constraint.Length;
+import net.sf.oval.constraint.NotBlank;
 import net.sf.oval.constraint.NotNegative;
 import net.sf.oval.constraint.NotNull;
 
@@ -16,23 +16,31 @@ import net.sf.oval.constraint.NotNull;
  * @author wiljo912
  */
 public class Product {
+    @NotNull(message = "ID must be provided.")
+    @NotBlank(message = "ID must be provided.")
     private String productID;
     @NotNull(message = "Name must be provided.")
-    //@NotBlank(message = "Name must be provided.")
+    @NotBlank(message = "Name must be provided.")
     @Length(min=2, message="Name must contain at least two characters.")
     private  String name;
+    @NotNull(message = "Category must be provided.")
+    @NotBlank(message = "Category must be provided.")
     private  String description;
+    @NotNull(message = "Category must be provided.")
+    @NotBlank(message = "Category must be provided.")
     private String category;
     @NotNull(message = "Price must be provided.")
     @NotNegative(message = "Price must be zero or greater.")
     private BigDecimal listPrice;
+    @NotNull(message = "Quantity must be provided.")
+    @NotBlank(message = "Quantity must be provided.")
     private  BigDecimal quantityInStock;
 
     public Product() {
     }
     
     public Product(String ID, String name, String description, String category, BigDecimal listPrice, BigDecimal quantityInStock) {
-        this.productID = productID;
+        this.productID = ID;
         this.name = name;
         this.description = description;
         this.category = category;

@@ -18,12 +18,16 @@ public class Sale {
     private LocalDate date;
     private String status;
     private ArrayList<SaleItem> saleItems = new ArrayList<SaleItem>();
+    private Customer customer; 
 
-    public Sale(LocalDate date, String status) {
+    public Sale(LocalDate date, String status, SaleItem item, Customer customer) {
         this.date = date;
+        this.saleItems.add(item);
         this.status = status;
+        this.customer = customer;
     }
 
+    
     public Integer getSaleID() {
         return saleID;
     }
@@ -42,6 +46,14 @@ public class Sale {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
     
     public BigDecimal getTotal(){

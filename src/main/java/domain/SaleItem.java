@@ -14,12 +14,33 @@ import java.math.BigDecimal;
 public class SaleItem {
     private BigDecimal quantityPurchase;
     private BigDecimal salePrice;
+    private Product product;
+    private Sale sale;
 
-    public SaleItem(BigDecimal quantityPurchase, BigDecimal salePrice) {
+    public SaleItem(BigDecimal quantityPurchase, BigDecimal salePrice, Product product, Sale sale) {
         this.quantityPurchase = quantityPurchase;
         this.salePrice = salePrice;
+        this.product = product;
+        this.sale = sale;
     }
 
+    public Sale getSale() {
+        return sale;
+    }
+
+    public void setSale(Sale sale) {
+        this.sale = sale;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+    
+    
     public BigDecimal getQuantityPurchase() {
         return quantityPurchase;
     }

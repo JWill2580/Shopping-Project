@@ -17,6 +17,7 @@ public class Customer {
     private  String password;
     private  String email;
     private  String shipping;
+    
 
     public Customer(String username, String firstname, String surname, String password, String email, String shipping) {
         this.username = username;
