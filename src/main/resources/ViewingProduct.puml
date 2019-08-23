@@ -1,4 +1,4 @@
-@startuml product-editor-sequence-diagram
+@startuml product-viewer-sequence-diagram
 
 skinparam guillemet false
 skinparam classAttributeIconSize 0
@@ -7,36 +7,52 @@ skinparam style strictuml
 skinparam sequenceParticipant underline
 hide circle
 
-title Product-Editor view product process
+title Product view product process
 
 actor "Staff" as staff
-participant "Administration" as admin
+participant "Administration" as admin <<main>>
 
 staff -> admin: runs program
 activate admin
 
-create "Main Screen" as main <<GUI>> 
-admin -> main: launch main menu gui
+create "Main Screen" as main <<JFrame>> 
+admin -> main: <<construct>>
 deactivate admin
 activate main
 main --> staff: displays main menu
 
 staff -> main: <<UI event>> clicks view product
 
-create "View Dialog" as dialog
+create "View Dialog" as dialog <<JDialog>>
 
-main -> dialog: launch view dialog
+main -> dialog: <<construct>>
 deactivate main
-participant "DAO" as dao
+create "DB Manage Products" as dao <<DAO>>
 activate dialog
-dialog -> dao: getProducts()
+dialog -> dao: <<construct>>
+
 activate dao
-loop for every product
-    dialog <-- dao: product.toString()
+dialog->dao : getProducts()
+database "Database" as db
+dao -> db: SELECT * FROM product
+activate db
+dao<--db: data
+deactivate db
+dao->dao : construct a product list from data
+
+dialog <-- dao: Collection<products>
 deactivate dao
 
+
 staff <-- dialog: display list of product
-end
+
+
+create "Simple List Model" as slm <<Helper>>
+dialog -> slm: <<construct>>
+activate slm
+dialog-> slm: updateItems(categories)
+deactivate slm
+dialog -> dialog: txt.categorysetModel(simpleListModel)
 
 
 staff -> dialog: <<UI event>> clicks close
