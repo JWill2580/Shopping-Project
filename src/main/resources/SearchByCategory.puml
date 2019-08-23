@@ -7,7 +7,7 @@ skinparam style strictuml
 skinparam sequenceParticipant underline
 hide circle
 
-title Product view product process
+title Filter by Category
 
 actor "Staff" as staff
 participant "Administration" as admin <<main>>
@@ -31,6 +31,9 @@ create "DB Manage Products" as dao <<DAO>>
 activate dialog
 dialog -> dao: <<construct>>
 
+
+
+
 activate dao
 dialog->dao : getProducts()
 database "Database" as db
@@ -46,14 +49,35 @@ deactivate dao
 
 
 
-
 create "Simple List Model" as slm <<Helper>>
 dialog -> slm: <<construct>>
 activate slm
 dialog-> slm: updateItems(categories)
 deactivate slm
 dialog -> dialog: txt.categorysetModel(simpleListModel)
+
 staff <-- dialog: display list of product
+
+staff->dialog : selects category from dropdown
+dialog->dialog : getSelectedItem()
+dialog->dao : getThroughCategory(product)
+activate dao
+dao->db : SELECT * FROM product WHERE category = ?
+activate db
+dao<--db : data
+deactivate db
+dao->dao : construct a product list from data
+dialog<--dao : data
+
+deactivate dao
+
+dialog-> slm: updateItems(data)
+activate slm
+deactivate slm
+dialog -> dialog: txt.categorysetModel(simpleListModel)
+
+staff <-- dialog: display list of product
+
 
 staff -> dialog: <<UI event>> clicks close
 dialog -> dialog: dispose()

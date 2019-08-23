@@ -199,7 +199,7 @@ public class AddProducts extends javax.swing.JDialog {
             // create a nice error message for the user
             String msg = "Please fix the following input problems:";
             for (ConstraintViolation cv : violations) {
-                msg += "\n •" + cv.getMessage();
+                msg += "\n" + cv.getMessage();
             }
             // display the message to the user
             JOptionPane.showMessageDialog(this, msg, "Input Error",

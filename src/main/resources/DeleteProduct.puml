@@ -7,7 +7,7 @@ skinparam style strictuml
 skinparam sequenceParticipant underline
 hide circle
 
-title Product view product process
+title Delete product process
 
 actor "Staff" as staff
 participant "Administration" as admin <<main>>
@@ -46,14 +46,36 @@ deactivate dao
 
 
 
-
 create "Simple List Model" as slm <<Helper>>
 dialog -> slm: <<construct>>
 activate slm
 dialog-> slm: updateItems(categories)
 deactivate slm
 dialog -> dialog: txt.categorysetModel(simpleListModel)
+
 staff <-- dialog: display list of product
+
+staff->dialog : clicks on product to delete
+staff->dialog : <<UI event>> clicks delete button
+
+dialog -> dialog : showConfirmDialog()
+
+alt clicks yes
+    staff -> dialog : <<UI event>> clicks yes
+    dialog -> dao : deleteProduct(product)
+    dao -> db : DELETE FROM product WHERE product_id = ?
+    dialog-> slm: updateItems(categories)
+    activate slm
+    deactivate slm
+    dialog -> dialog: txt.categorysetModel(simpleListModel)
+    
+else clicks no
+    staff -> dialog : <<UI event>> clicks no
+end
+
+
+
+
 
 staff -> dialog: <<UI event>> clicks close
 dialog -> dialog: dispose()
