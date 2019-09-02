@@ -13,12 +13,17 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+
+
 /**
  *
  * @author wiljo912
  */
 public class ProductCollectionDAOTest {
-    private ProductCollectionDAO dao = new ProductCollectionDAO();
+    //private ProductsCollectionDAOInterface dao = new ProductCollectionDAO();
+    private ProductsCollectionDAOInterface dao = new DbManageProducts(
+"jdbc:h2:mem:tests;INIT=runscript from 'src/main/resources/schema.sql'");
+    
     private Product prodOne;
     private Product prodTwo;
     private Product prodThree;

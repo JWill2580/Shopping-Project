@@ -62,7 +62,7 @@ public class DbManageProducts implements ProductsCollectionDAOInterface {
 
     @Override
     public void deleteProduct(Product product) {
-        String statement = "delete from PRODUCT where PRODUCT_ID = ?";
+        String statement = "delete from product where product_id = ?";
         try (
                 // get a connection to the database
                 Connection dbCon = DbConnection.getConnection(
