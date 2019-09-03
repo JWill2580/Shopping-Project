@@ -8,7 +8,7 @@
  * Created: 9/08/2019
  */
 
-create table Product (
+create table PRODUCT (
     Product_ID varchar(50),
     Product_Name varchar(50) not null,
     Description varchar(50),
