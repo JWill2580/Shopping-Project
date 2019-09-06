@@ -68,7 +68,11 @@ public class AddProducts extends javax.swing.JDialog {
 
         jLabel1.setText("ID:");
 
+        txtID.setName("txtID"); // NOI18N
+
         jLabel2.setText("Name:");
+
+        txtName.setName("txtName"); // NOI18N
 
         jLabel3.setText("Description:");
 
@@ -76,13 +80,19 @@ public class AddProducts extends javax.swing.JDialog {
 
         jLabel5.setText("Price:");
 
+        txtPrice.setName("txtPrice"); // NOI18N
+
         qis.setText("Quantity In Stock:");
+
+        txtQuantityInStock.setName("txtQuantityInStock"); // NOI18N
 
         txtDescription.setColumns(20);
         txtDescription.setRows(5);
+        txtDescription.setName("txtDescription"); // NOI18N
         jScrollPane2.setViewportView(txtDescription);
 
         save.setText("Save");
+        save.setName("save"); // NOI18N
         save.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 saveActionPerformed(evt);
@@ -97,6 +107,7 @@ public class AddProducts extends javax.swing.JDialog {
         });
 
         txtCategory.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Doohicky", "Frobnostificator", "Widget", "Fidget" }));
+        txtCategory.setName("txtCategory"); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

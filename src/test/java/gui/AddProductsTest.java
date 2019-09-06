@@ -8,6 +8,7 @@ package gui;
 
 import dao.ProductsCollectionDAOInterface;
 import domain.Product;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
 //Assertj
@@ -58,11 +59,6 @@ public class AddProductsTest {
         fixture.cleanUp();
     }
     
-    //@Test
-    //public void testEdit() {
-        
-    //}
-    
     @Test
     public void testSaveProduct() {
         AddProducts dialog = new AddProducts(null, true, dao);
@@ -91,17 +87,17 @@ public class AddProductsTest {
         // retrieve the passed product from the captor
         Product savedProduct = argument.getValue();
 
-        assertEquals("Ensure the ID was saved", Integer.valueOf(1), savedProduct.getProductID());
-	assertEquals("Ensure the name was saved", "Prod1", savedProduct.getName());
-        assertEquals("Ensure the Description was saved", "Product", savedProduct.getName());
-	assertEquals("Ensure the major was saved", "Toy", savedProduct.getCategory());
-	assertEquals("Ensure the Price was saved", "14.99", savedProduct.getName());
-	assertEquals("Ensure the Quantity was saved", "15", savedProduct.getName());
+        assertEquals("Ensure the ID was saved", "1", savedProduct.getProductID());
+	assertEquals("Ensure the Name was saved", "Prod1", savedProduct.getName());
+        assertEquals("Ensure the Description was saved", "Product", savedProduct.getDescription());
+	assertEquals("Ensure the Category was saved", "Knitting", savedProduct.getCategory());
+	assertEquals("Ensure the Price was saved", new BigDecimal("14.99"), savedProduct.getListPrice());
+	assertEquals("Ensure the Quantity was saved", new BigDecimal("15"), savedProduct.getQuantityInStock());
 
     }
     
     @Test
-    public void TestDeleteProduct() {
+    public void getCategories() {
         AddProducts dialog = new AddProducts(null, true, dao);
         
         // using AssertJ to control the dialog
@@ -127,14 +123,12 @@ public class AddProductsTest {
         
         // retrieve the passed product from the captor
         Product savedProduct = argument.getValue();
+        
 
-        assertEquals("Ensure the ID was saved", Integer.valueOf(1), savedProduct.getProductID());
-	assertEquals("Ensure the name was saved", "Prod1", savedProduct.getName());
-        assertEquals("Ensure the Description was saved", "Product", savedProduct.getName());
-	assertEquals("Ensure the major was saved", "Toy", savedProduct.getCategory());
-	assertEquals("Ensure the Price was saved", "14.99", savedProduct.getName());
-	assertEquals("Ensure the Quantity was saved", "15", savedProduct.getName());
-
+        AddProducts dialog2 = new AddProducts(null, true, dao);
+        
+        // using AssertJ to control the dialog
+        fixture = new DialogFixture(robot, dialog2);
+	fixture.show().requireVisible();
     }
-    
 }
