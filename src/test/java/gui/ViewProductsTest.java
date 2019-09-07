@@ -8,9 +8,11 @@ package gui;
 
 import dao.ProductsCollectionDAOInterface;
 import domain.Product;
+import helpers.SimpleListModel;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 //Assertj
 import org.assertj.swing.core.BasicRobot;
 import org.assertj.swing.core.Robot;
@@ -22,9 +24,12 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 //Mockito
 import org.mockito.ArgumentCaptor;
+import org.mockito.Mockito;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import org.mockito.invocation.InvocationOnMock;
+import org.mockito.stubbing.Answer;
 
 
 /**
@@ -35,6 +40,9 @@ public class ViewProductsTest {
     private ProductsCollectionDAOInterface dao;
     private DialogFixture fixture;
     private Robot robot;
+    private Product prod1;
+    private Product prod2;
+    private Collection<Product> products;
     
     @Before
     public void setUp() {
@@ -42,13 +50,13 @@ public class ViewProductsTest {
 
         // Slow down the robot a little bit - default is 30 (milliseconds).
 	// Do NOT make it less than 10 or you will have thread-race problems.
-	robot.settings().delayBetweenEvents(75);
+	robot.settings().delayBetweenEvents(200);
         
-        Product prod1 = new Product("1", "Prod1", "Product", "Knitting", new BigDecimal(14.99), new BigDecimal(15));
-        Product prod2= new Product("2", "Prod2", "Product", "Knitting", new BigDecimal(15.99), new BigDecimal(32));
+        prod1 = new Product("1", "Prod1", "Product", "Knitting", new BigDecimal(14.99), new BigDecimal(15));
+        prod2= new Product("2", "Prod2", "Product", "Knitting", new BigDecimal(15.99), new BigDecimal(32));
    
         
-        Collection<Product> products = new ArrayList<>();
+        products = new HashSet<>();
         products.add(prod1);
         products.add(prod2);
 
@@ -57,17 +65,21 @@ public class ViewProductsTest {
         dao = mock(ProductsCollectionDAOInterface.class);
         
         when(dao.getProducts()).thenReturn(products);
+        
+        // stub the deleteProduct method
+        Mockito.doAnswer(new Answer<Void>() {
+            public Void answer(InvocationOnMock invocation) throws Throwable {
+                // remove the product from the collection that getProducts() uses
+                products.remove(prod1);
+                return null;
+            }
+        }).when(dao).deleteProduct(prod1);
     }
     
     @After
     public void tearDown() {
         fixture.cleanUp();
     }
-    
-    //@Test
-    //public void testEdit() {
-        
-    //}
     
     @Test
     public void testDeleteProduct() {
@@ -80,14 +92,14 @@ public class ViewProductsTest {
       
         
         // click the product then deletes it button
-        fixture.list().click(); //Potential issue here
+        fixture.list("productList").selectItem(1); //Potential issue here
         fixture.button("delete").click();
-        fixture.button("YES_OPTION").click();
 
-        //System.out.println(products);
+        SimpleListModel model = (SimpleListModel) fixture.list("productList").target().getModel();
+
         
-        assertEquals("Ensure product deleted", 1, savedProduct.toString());//how to check size of list
-
+        assertTrue("Ensure product deleted", model.contains(prod1));
+        assertEquals("List has only one product", 1, model.getSize());
     }
     
     @Test
@@ -98,17 +110,46 @@ public class ViewProductsTest {
         fixture = new DialogFixture(robot, dialog);
 	fixture.show().requireVisible();
         
+        fixture.comboBox("cmbFilterCategory").selectedItem(); //There is an issue here regarding selected item brackets
         
+        SimpleListModel model = (SimpleListModel) fixture.list("productList").target().getModel();
 
-        // create a Mockito argument captor to use to retrieve the passed product from the mocked DAO
-        ArgumentCaptor<Product> argument = ArgumentCaptor.forClass(Product.class);
+        assertTrue("Prod1 found", model.contains(prod1));
+        assertEquals("List has only one product", 1, model.getSize());
+    }  
+    
+    @Test
+    public void testGetThroughID() {
+        ViewProducts dialog = new ViewProducts(null, true, dao);
+        
+        // using AssertJ to control the dialog
+        fixture = new DialogFixture(robot, dialog);
+	fixture.show().requireVisible();
+        
+        fixture.textBox("txtSearchID").enterText("2");
+        fixture.button("searchButton").click();
+        
+        
+        SimpleListModel model = (SimpleListModel) fixture.list("productList").target().getModel();
 
-        // verify that the DAO.save method was called
-        verify(dao).saveProduct(argument.capture());
+        assertTrue("Prod2 found", model.contains(prod2));
+        assertEquals("List has only one product", 1, model.getSize());
+    }
+    
+    @Test
+    public void testView() {
+        ViewProducts dialog = new ViewProducts(null, true, dao);
         
-        // retrieve the passed product from the captor
-        Product savedProduct = argument.getValue();
+        // using AssertJ to control the dialog
+        fixture = new DialogFixture(robot, dialog);
+	fixture.show().requireVisible();
         
-	assertEquals("Ensure the Quantity was saved", new BigDecimal("15"), savedProduct.getQuantityInStock());
-    }    
+        verify(dao).getProducts(); 
+        
+        SimpleListModel model = (SimpleListModel) fixture.list("productList").target().getModel();
+        
+        assertTrue("Prod1 found", model.contains(prod1));
+        assertTrue("Prod2 found", model.contains(prod2));
+        assertEquals("List has two products", 2, model.getSize());
+    }
 }
