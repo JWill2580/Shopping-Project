@@ -110,7 +110,7 @@ public class ViewProductsTest {
         SimpleListModel model = (SimpleListModel) fixture.list("productList").target().getModel();
 
         
-        assertTrue("Ensure product deleted", model.contains(prod1));
+        assertFalse("Ensure product deleted", model.contains(prod1));
         assertEquals("List has only one product", 1, model.getSize());
     }
     
