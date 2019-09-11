@@ -16,21 +16,17 @@ import org.jooby.json.Gzon;
  * @author wiljo912
  */
 public class Server extends Jooby {
-    
+
     private DbManageProducts db = new DbManageProducts();
+    
 
     public Server() {
         port(8080);
         //get("/", () -> "Hello World");
-        get("/api/products", () -> db.getProducts());
-        get("/api/products/:id", (req) -> {
-            String id = req.param("id").value();
-            return db.getThroughID(id);
-        });
-        
-        //use(new ProductModule(db));
-        //use(new Gzon());
-    }
+        use(new Gzon());        
+        use(new ProductModule(db));
+       // use(new CustomerModule()); Get help regarding this
+}
     
 
     public static void main(String[] args) throws Exception {
