@@ -16,6 +16,8 @@ import java.util.HashSet;
 //Assertj
 import org.assertj.swing.core.BasicRobot;
 import org.assertj.swing.core.Robot;
+import static org.assertj.swing.core.matcher.DialogMatcher.withTitle;
+import static org.assertj.swing.core.matcher.JButtonMatcher.withText;
 import org.assertj.swing.fixture.DialogFixture;
 //Junit
 import org.junit.After;
@@ -55,8 +57,8 @@ public class ViewProductsTest {
 	// Do NOT make it less than 10 or you will have thread-race problems.
 	robot.settings().delayBetweenEvents(200);
         
-        prod1 = new Product("1", "Prod1", "Product", "Knitting", new BigDecimal(14.99), new BigDecimal(15));
-        prod2 = new Product("2", "Prod2", "Product", "Drawing", new BigDecimal(15.99), new BigDecimal(32));
+        prod1 = new Product("1", "Prod1", "Product", "Knitting", new BigDecimal("14.99"), new BigDecimal(15));
+        prod2 = new Product("2", "Prod2", "Product", "Drawing", new BigDecimal("15.99"), new BigDecimal(32));
    
         
         products = new HashSet<>();
@@ -104,9 +106,14 @@ public class ViewProductsTest {
       
         
         // click the product then deletes it button
-        fixture.list("productList").selectItem(1); //Potential issue here
+        fixture.list("productList").selectItem(prod1.toString()); //Potential issue here
         fixture.button("deleteButton").click();
 
+        DialogFixture confirmDialog = fixture.dialog(withTitle("Select an Option").andShowing()).requireVisible();
+        confirmDialog.button(withText("Yes")).click();
+        
+        verify(dao).deleteProduct(prod1); 
+        
         SimpleListModel model = (SimpleListModel) fixture.list("productList").target().getModel();
 
         
@@ -123,6 +130,8 @@ public class ViewProductsTest {
 	fixture.show().requireVisible();
         
         fixture.comboBox("cmbFilterCategory").selectItem(0); //There is an issue here regarding selected item brackets
+        
+         verify(dao).getThroughCategory("Knitting"); 
         
         SimpleListModel model = (SimpleListModel) fixture.list("productList").target().getModel();
 
@@ -141,7 +150,7 @@ public class ViewProductsTest {
         fixture.textBox("txtSearchID").enterText("2");
         fixture.button("searchButton").click();
         
-        
+        verify(dao).getThroughID("2"); 
         
         SimpleListModel model = (SimpleListModel) fixture.list("productList").target().getModel();
 
