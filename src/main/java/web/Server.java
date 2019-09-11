@@ -28,8 +28,8 @@ public class Server extends Jooby {
             return db.getThroughID(id);
         });
         
-        use(new ProductModule(db));
-        use(new Gzon());
+        //use(new ProductModule(db));
+        //use(new Gzon());
     }
     
 

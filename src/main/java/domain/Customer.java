@@ -28,6 +28,10 @@ public class Customer {
         this.shipping = shipping;
     }
 
+    public Customer() {
+    }
+
+    
     public static Integer getCustomerID() {
         return customerID;
     }

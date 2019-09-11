@@ -43,6 +43,9 @@ public class ViewProductsTest {
     private Product prod1;
     private Product prod2;
     private Collection<Product> products;
+    private Collection<Product> singleProdCollection;
+    private Collection<String> categories;
+
     
     @Before
     public void setUp() {
@@ -53,18 +56,27 @@ public class ViewProductsTest {
 	robot.settings().delayBetweenEvents(200);
         
         prod1 = new Product("1", "Prod1", "Product", "Knitting", new BigDecimal(14.99), new BigDecimal(15));
-        prod2= new Product("2", "Prod2", "Product", "Knitting", new BigDecimal(15.99), new BigDecimal(32));
+        prod2 = new Product("2", "Prod2", "Product", "Drawing", new BigDecimal(15.99), new BigDecimal(32));
    
         
         products = new HashSet<>();
         products.add(prod1);
         products.add(prod2);
 
+        singleProdCollection = new HashSet<>();
+        singleProdCollection.add(prod1);
+        
+        categories = new HashSet<>();
+        categories.add("Knitting");
         
 	// create a mock for the DAO
         dao = mock(ProductsCollectionDAOInterface.class);
         
         when(dao.getProducts()).thenReturn(products);
+        when(dao.getCategories()).thenReturn(categories);
+        when(dao.getThroughID("2")).thenReturn(prod2);
+        when(dao.getThroughCategory("Knitting")).thenReturn(singleProdCollection);
+
         
         // stub the deleteProduct method
         Mockito.doAnswer(new Answer<Void>() {
@@ -93,7 +105,7 @@ public class ViewProductsTest {
         
         // click the product then deletes it button
         fixture.list("productList").selectItem(1); //Potential issue here
-        fixture.button("delete").click();
+        fixture.button("deleteButton").click();
 
         SimpleListModel model = (SimpleListModel) fixture.list("productList").target().getModel();
 
@@ -110,7 +122,7 @@ public class ViewProductsTest {
         fixture = new DialogFixture(robot, dialog);
 	fixture.show().requireVisible();
         
-        fixture.comboBox("cmbFilterCategory").selectedItem(); //There is an issue here regarding selected item brackets
+        fixture.comboBox("cmbFilterCategory").selectItem(0); //There is an issue here regarding selected item brackets
         
         SimpleListModel model = (SimpleListModel) fixture.list("productList").target().getModel();
 
@@ -128,6 +140,7 @@ public class ViewProductsTest {
         
         fixture.textBox("txtSearchID").enterText("2");
         fixture.button("searchButton").click();
+        
         
         
         SimpleListModel model = (SimpleListModel) fixture.list("productList").target().getModel();

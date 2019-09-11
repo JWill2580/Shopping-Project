@@ -33,6 +33,15 @@ public class ViewProducts extends javax.swing.JDialog {
     public ViewProducts(java.awt.Frame parent, boolean modal, ProductsCollectionDAOInterface jdbcDAO) {
         super(parent, modal);
         initComponents();
+        
+        txtSearchID.setName("txtSearchID");
+        searchButton.setName("searchButton");
+        cmbFilterCategory.setName("cmbFilterCategory");
+        productList.setName("productList");
+        deleteButton.setName("deleteButton");
+        closeButton.setName("closeButton");
+        
+        
         this.jdbcDAO = jdbcDAO;
         myModel = new SimpleListModel();
         cmbModel = new SimpleListModel();
@@ -89,6 +98,8 @@ public class ViewProducts extends javax.swing.JDialog {
         });
 
         jLabel2.setText("Seach by ID:");
+
+        txtSearchID.setName(""); // NOI18N
 
         searchButton.setText("Search");
         searchButton.addActionListener(new java.awt.event.ActionListener() {
