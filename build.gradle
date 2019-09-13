@@ -1,6 +1,13 @@
 plugins {
     id "application"        
 }
+sourceSets {
+    web {
+        resources {
+            srcDir 'public'
+        }
+    }
+}
 run {
     standardInput = System.in
 }
@@ -18,4 +25,5 @@ dependencies {
     implementation group: 'org.jooby', name: 'jooby-netty', version: joobyVer
     implementation group: 'org.jooby', name: 'jooby-gson', version: joobyVer
 }
+
 mainClassName = "Administration"

@@ -5,6 +5,7 @@
  */
 package web;
 
+import dao.CustomerCollectionDAO;
 import dao.DbManageProducts;
 import dao.ProductsCollectionDAOInterface;
 import java.util.concurrent.CompletableFuture;
@@ -18,14 +19,17 @@ import org.jooby.json.Gzon;
 public class Server extends Jooby {
 
     private DbManageProducts db = new DbManageProducts();
-    
+    private CustomerCollectionDAO custdb = new CustomerCollectionDAO();
 
     public Server() {
         port(8080);
         //get("/", () -> "Hello World");
+
         use(new Gzon());        
         use(new ProductModule(db));
-       // use(new CustomerModule()); Get help regarding this
+        use(new CustomerModule(custdb)); 
+        use(new AssetModule());
+
 }
     
 
