@@ -20,8 +20,13 @@ public class ProductModule extends Jooby {
             String id = req.param("id").value();
             return db.getThroughID(id);
         });
+        get("/api/categories", () -> db.getCategories());
+        get("/api/categories/:category", (req) -> {
+            String category = req.param("category").value();
+            return db.getThroughCategory(category);
+        });
     }
-    
-    
+
+
     
 }

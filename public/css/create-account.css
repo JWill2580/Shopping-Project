@@ -1,0 +1,72 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 13/09/2019, 2:26:23 PM
+    Author     : wiljo912
+*/
+
+#button-div{
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+button {
+    padding:10px;
+    margin: 10px;
+    margin: 5px 5px 0px 5px;
+}
+
+#create-account-btn button{
+    display: flex;
+    justify-content: center;
+    margin: 5px auto 0px auto;
+}
+
+#page-header{ 
+        margin: 0 auto;
+        background-color: lightcoral;
+}
+
+h1 {
+    text-align: center;
+    padding: 10px;
+    margin: 10px;
+}
+
+form {
+    /* Just to center the form on the page */
+    margin: 0 auto;
+    width: 400px;
+    /* To see the outline of the form */
+    padding: 1em;
+    border: 1px solid #CCC;
+    border-radius: 1em;
+}
+
+
+
+label {
+  /* To make sure that all labels have the same size and are properly aligned */
+  display: inline-block;
+  width: 120px;
+  text-align: right;
+  padding:5px;
+}
+
+input {
+  font: 1em sans-serif;
+
+  /* To give the same size to all text fields */
+  width: 200px;
+  box-sizing: border-box;
+
+  border: 1px solid #999;
+}
+input:focus {
+  /* To give a little highlight on active elements */
+  border-color: #000;
+}
