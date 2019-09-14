@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Quantity to purchase</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="css/index.css">
+    </head>
+    <body>
+
+        <div id="button-div"> 
+            <button type="button" onclick="window.location.href='index.html';">Home</button>
+            <button type="button" >Sign In</button>
+        </div>
+     
+       
+        <div id="page-header"><h1>How many do you want to buy?</h1></div>
+        
+        <table>
+            <tr>
+                <td>ID: </td>
+                <td>DO4156</td>
+            </tr>
+            <tr>
+                <td>Name:</td>
+                <td>Dodgy Doohicky</td>
+                
+            </tr>
+            <tr>
+                <td>Description</td>
+                <td>This doohicky comes with no guarantee in mind</td>
+               
+            </tr>
+            <tr>
+                <td>Price</td>
+                <td>12.43</td>
+               
+            </tr>
+            <tr>
+                <td>Quantity</td>
+                <td>10</td>
+               
+            </tr>
+            
+        </table>
+        
+        
+        <fieldset>
+            <legend>Quantity to buy</legend>
+            <form action="/quantity-to-buy" method="post" >
+                <div>
+                    <label for="quantity">How many?</label>
+                    <input type="text"  name="quantity" required style='width: 100px'>
+                    <button type="submit">Add to Cart</button>
+                </div>
+           
+            </form>
+        </fieldset>
+    </body>
+</html>
