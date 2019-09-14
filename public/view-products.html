@@ -4,14 +4,18 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
-<html>
+<html ng-app="ShoppingApp">
     <head>
         <title>View Products</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="css/index.css">
+        <script src="js/angular.min.js"></script>
+        <script src="js/angular-resource.min.js"></script>
+        <script src="js/ngStorage.min.js"></script>
+        <script src="js/shopping.js"></script>
     </head>
-    <body>
+    <body ng-controller="ProductController as prodCtrl">
         
         <!--TODO Change Button layout currently set up so user has signed in, dynamic-->
         <div id="button-div"> 
@@ -26,10 +30,11 @@ and open the template in the editor.
         <div id="page-header"><h1>Products</h1></div>
         
         <div id="button-div"> 
-            <button type="button" >All</button>
-            <button type="button" >Doohickies</button>
-            <button type="button" >Widgets</button>
-            <button type="button" >Frobnosticators</button>
+            <button ng-repeat="cat in prodCtrl.categories">{{cat}}</button>
+            <!--<button type="button" >Widgets</button>
+            <button type="button" >Frobnosticators</button>\
+                        <button type="button" >All</button>
+-->
         </div>
         
         <table>
@@ -40,13 +45,14 @@ and open the template in the editor.
                 <th>Available</th>
                 <th>Purchase</th>
             </tr>
-            <tr>
-                <td>Polkadot Doohicky</td>
-                <td>A doohicky that is covered in spots</td>
-                <td>$43.23</td>
-                <td>6</td>
+            <tr ng-repeat="product in prodCtrl.products">
+                <td>{{product.name}}</td>
+                <td>{{product.description}}</td>
+                <td>{{product.listprice}}</td>
+                <td>{{product.quantityInStock}}</td>
                 <td><button>Buy</button></td>
             </tr>
+            <!-- dummy products
             <tr>
                 <td>Dodgy Doohicky</td>
                 <td>A doohicky that comes with no guarentee of any kind</td>
@@ -60,9 +66,10 @@ and open the template in the editor.
                 <td>$3.21</td>
                 <td>5</td>
                 <td><button>Buy</button></td>
-            </tr>
+            </tr>-->
         </table>
         
         
     </body>
 </html>
+ 
