@@ -8,22 +8,33 @@ and open the template in the editor.
     Author     : wiljo912
 */
 
+* {
+    font-family: sans-serif;
+}
+
 #button-div{
     display: flex;
     justify-content: center;
     margin: 0 auto;
+    height: 30px;
 }
 
+#button-div p {
+    margin-left: 20px;
+    font-size: 12px;
+    font-style: italic;
+}
+
+
 button {
-    padding:10px;
-    margin: 10px;
     margin: 5px 5px 0px 5px;
 }
 
-#create-account-btn button{
+#end-of-form-action-btn button{
     display: flex;
     justify-content: center;
-    margin: 5px auto 0px auto;
+    margin: 13px auto 0px auto;
+    padding: 5px;
 }
 
 #page-header{ 
@@ -37,17 +48,28 @@ h1 {
     margin: 10px;
 }
 
+
+#sign-in-p {
+     margin: 30px auto;
+    width: 400px;
+    text-align: center;
+    
+}
+
 form {
     /* Just to center the form on the page */
     margin: 0 auto;
-    width: 400px;
+    width: 350px;
     /* To see the outline of the form */
-    padding: 1em;
-    border: 1px solid #CCC;
-    border-radius: 1em;
+    padding: 5px;
+    /*border: 1px solid #CCC;*/
+    /*border-radius: 1em;*/
 }
 
-
+fieldset {
+    margin: 20px auto;
+    width: 300px;
+}
 
 label {
   /* To make sure that all labels have the same size and are properly aligned */
