@@ -4,33 +4,39 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
-<html>
+<html ng-app="ShoppingApp">
     <head>
         <title>Sign in</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="css/index.css">
+        
+        <script src="js/angular.min.js"></script>
+        <script src="js/angular-resource.min.js"></script>
+        <script src="js/ngStorage.min.js"></script>
+        <script src="js/shopping.js"></script>
     </head>
-    <body>
+    <body ng-controller="CustomerController as custCtrl">
 
-        <div id="button-div"> 
+       <!--<div id="button-div"> 
             <button type="button" onclick="window.location.href='index.html';">Home</button>
             <button type="button" >Sign In</button>
-        </div>
-     
+        </div>-->
+       <div ng-include="'menu.html'" ></div>
+
        
         <div id="page-header"><h1>Sign In</h1></div>
-        <p id='sign-in-p'>Please Sign in to continue.</p>
+        <p id='sign-in-p'>{{custCtrl.signInMessage}}</p>
         <fieldset>
             <legend>Account Details</legend>
-            <form action="/sign-in" method="post" >
+            <form ng-submit="custCtrl.signIn(username, password)">
                 <div>
                     <label for="username">Username:</label>
-                    <input type="text"  name="username" required>
+                    <input type="text"  name="username" ng-model="username" required>
                 </div>
                 <div>
                     <label for="password">Password:</label>
-                    <input type="password"  name="password" required>
+                    <input type="password"  name="password" ng-model="password" required>
                 </div>
                 <div id="end-of-form-action-btn">
                     <button type="submit" class="registerbtn">Sign In</button>

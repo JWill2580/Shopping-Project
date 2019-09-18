@@ -10,6 +10,7 @@ and open the template in the editor.
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="css/index.css">
+        
         <script src="js/angular.min.js"></script>
         <script src="js/angular-resource.min.js"></script>
         <script src="js/ngStorage.min.js"></script>
@@ -17,24 +18,23 @@ and open the template in the editor.
     </head>
     <body ng-controller="ProductController as prodCtrl">
         
-        <!--TODO Change Button layout currently set up so user has signed in, dynamic-->
+        <!--TODO Change Button layout currently set up so user has signed in, dynamic
         <div id="button-div"> 
             <button type="button" onclick="window.location.href='index.html';">Home</button>
             <button type="button" >Browse Products</button>
             <button type="button" >View Cart</button>
             <button type="button" >Sign out</button>
-            <p>Welcome User</p><!-- TODO make dynamic -->
-        </div>
-     
+            
+            <p>Welcome User</p><!-- TODO make dynamic
+        </div>-->
+        <div ng-include="'menu.html'" ></div>
+
        
         <div id="page-header"><h1>Products</h1></div>
         
-        <div id="button-div"> 
-            <button ng-repeat="cat in prodCtrl.categories">{{cat}}</button>
-            <!--<button type="button" >Widgets</button>
-            <button type="button" >Frobnosticators</button>\
-                        <button type="button" >All</button>
--->
+       <div id="button-div"> 
+            <button ng-click="prodCtrl.selectCategory(cat)" ng-repeat="cat in prodCtrl.categories" >{{cat}}</button>
+            <button ng-click="prodCtrl.allCategories()">All</button>
         </div>
         
         <table>
@@ -45,28 +45,13 @@ and open the template in the editor.
                 <th>Available</th>
                 <th>Purchase</th>
             </tr>
-            <tr ng-repeat="product in prodCtrl.products">
+           <tr ng-repeat="product in prodCtrl.products">
                 <td>{{product.name}}</td>
                 <td>{{product.description}}</td>
                 <td>{{product.listprice}}</td>
                 <td>{{product.quantityInStock}}</td>
                 <td><button>Buy</button></td>
             </tr>
-            <!-- dummy products
-            <tr>
-                <td>Dodgy Doohicky</td>
-                <td>A doohicky that comes with no guarentee of any kind</td>
-                <td>$12.43</td>
-                <td>10</td>
-                <td><button>Buy</button></td>
-            </tr>
-            <tr>
-                <td>Fuzzy Frobnosticator</td>
-                <td>A Frobnosticator that fell in some cat hair</td>
-                <td>$3.21</td>
-                <td>5</td>
-                <td><button>Buy</button></td>
-            </tr>-->
         </table>
         
         

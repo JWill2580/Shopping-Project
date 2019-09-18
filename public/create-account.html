@@ -4,48 +4,56 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
-<html>
+<html ng-app="ShoppingApp">
     <head>
         <title>Create Account</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="css/index.css">
+        
+        <script src="js/angular.min.js"></script>
+        <script src="js/angular-resource.min.js"></script>
+        <script src="js/ngStorage.min.js"></script>
+        <script src="js/shopping.js"></script>
     </head>
     <body>
 
-        <div id="button-div"> 
+        <!--<div id="button-div"> 
             <button type="button" onclick="window.location.href='index.html';">Home</button>
-            <button type="button" onclick="window.location.href='sign-in.html';">Sign In</button>
-        </div>
+            <button type="button" >Sign In</button>
+        </div>-->
+        
+        <div ng-include="'menu.html'" ></div>
+
      
        
         <div id="page-header"><h1>Create an account</h1></div>
         <fieldset>
             <legend>Account Details</legend>
-            <form action="/create-account" method="post" >
+            <form ng-controller="CustomerController as custCtrl" ng-submit="custCtrl.registerCustomer(customer)">
                 <div>
                     <label for="username">Username:</label>
-                    <input type="text"  name="username" required>
+                    <input type="text"  name="username" ng-model="customer.username" required>
                 </div>
                 <div>
                     <label for="firstname">First Name:</label>
-                    <input type="text"  name="firstname" required>
+                    <input type="text"  name="firstname" ng-model="customer.firstname" required>
                 </div>
                 <div>
                     <label for="lastname">Last Name:</label>
-                    <input type="text" name="lastname" required>
+                    <input type="text" name="lastname" ng-model="customer.surname" required>
                 </div>
                 <div>
                     <label for="email">Email:</label>
-                    <input type="text" name="email" required>
+                    <input type="email" name="email" ng-model="customer.email" required>
                 </div>
                 <div> 
                     <label for="address">Enter Address:</label>
-                    <input type="text"  name="address" required>
+                    <input type="text"  name="address" ng-model="customer.shipping" required>
                 </div>
                 <div>
                     <label for="password">Password:</label>
-                    <input type="password"  name="password" required>
+                    <input type="password"  name="password" ng-model="customer.password" required>
                 </div>
                 <div id="end-of-form-action-btn">
                     <button type="submit" class="registerbtn">Create Account</button>

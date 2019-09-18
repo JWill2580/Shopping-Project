@@ -8,6 +8,7 @@ package web;
 import dao.CustomerCollectionDAOInterface;
 import domain.Customer;
 import org.jooby.Jooby;
+import org.jooby.Result;
 import org.jooby.Status;
 
 /**
@@ -18,9 +19,19 @@ public class CustomerModule extends Jooby{
     
     
      public CustomerModule(CustomerCollectionDAOInterface db) {
-        get("/api/customer/:username", (req) -> {
-            String username = req.param("username").value();
-            return db.getCustomer(username);
+        get("/api/customers/:username", (req) -> {
+            
+             String username = req.param("username").value();
+             
+                Customer cust = db.getCustomer(username);
+            
+                if(cust == null) {
+                    return new Result().status(Status.NOT_FOUND);
+                } else {
+                    return cust;
+                }
+            
+            
         });
         post("/api/register", (req, rsp) -> {
             Customer customer = req.body().to(Customer.class);
