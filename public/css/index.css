@@ -10,6 +10,17 @@ and open the template in the editor.
 
 * {
     font-family: sans-serif;
+
+}
+
+#menu {
+    margin: 0 auto;
+    width: 450px;
+    text-align: center;
+}
+
+#menu button + div {
+    display: inline;
 }
 
 #button-div{
@@ -83,9 +94,13 @@ th {
 
 table td {
     border-bottom: 1px dotted black;
+    text-align: center;
 }
 
-
+table td button{
+    margin: 0;
+    padding: 5px;
+}
 
 label {
   /* To make sure that all labels have the same size and are properly aligned */

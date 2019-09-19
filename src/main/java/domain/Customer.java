@@ -10,7 +10,7 @@ package domain;
  * @author wiljo912
  */
 public class Customer {
-    private static Integer customerID;
+    private  Integer customerID;
     private  String username;
     private  String firstname;
     private  String surname;
@@ -32,7 +32,7 @@ public class Customer {
     }
 
     
-    public static Integer getCustomerID() {
+    public Integer getCustomerID() {
         return customerID;
     }
 
@@ -86,8 +86,10 @@ public class Customer {
 
     @Override
     public String toString() {
-        return "Customer{" + "username=" + username + ", firstname=" + firstname + ", surname=" + surname + ", password=" + password + ", email=" + email + ", shipping=" + shipping + '}';
+        return "Customer{" + "customerID=" + customerID + ", username=" + username + ", firstname=" + firstname + ", surname=" + surname + ", password=" + password + ", email=" + email + ", shipping=" + shipping + '}';
     }
+
+   
     
     
 }
