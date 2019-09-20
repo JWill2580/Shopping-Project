@@ -6,9 +6,8 @@
 package gui;
 
 import dao.DAOException;
-import dao.DbManageProducts;
+import dao.JDBCManageProducts;
 import dao.ProductCollectionDAO;
-import dao.ProductsCollectionDAOInterface;
 import domain.Product;
 import helpers.SimpleListModel;
 import java.math.BigDecimal;
@@ -16,6 +15,7 @@ import javax.swing.JOptionPane;
 import net.sf.oval.ConstraintViolation;
 import net.sf.oval.Validator;
 import net.sf.oval.exception.ConstraintsViolatedException;
+import dao.ProductsDAOInterface;
 
 /**
  *
@@ -25,12 +25,12 @@ public class AddProducts extends javax.swing.JDialog {
     //private ProductCollectionDAO dao = new ProductCollectionDAO();
     private SimpleListModel comboModel = new SimpleListModel();
     //private DbManageProducts jdbcDAO = new DbManageProducts();
-    private final ProductsCollectionDAOInterface jdbcDAO;
+    private final ProductsDAOInterface jdbcDAO;
     
     /**
      * Creates new form ProductDialog
      */
-    public AddProducts(java.awt.Frame parent, boolean modal, ProductsCollectionDAOInterface jdbcDAO) {
+    public AddProducts(java.awt.Frame parent, boolean modal, ProductsDAOInterface jdbcDAO) {
         super(parent, modal);
         initComponents();
         this.jdbcDAO = jdbcDAO;

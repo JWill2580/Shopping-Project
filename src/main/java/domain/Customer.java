@@ -10,7 +10,7 @@ package domain;
  * @author wiljo912
  */
 public class Customer {
-    private  Integer customerID;
+    private  String customerID;
     private  String username;
     private  String firstname;
     private  String surname;
@@ -32,7 +32,7 @@ public class Customer {
     }
 
     
-    public Integer getCustomerID() {
+    public String getCustomerID() {
         return customerID;
     }
 

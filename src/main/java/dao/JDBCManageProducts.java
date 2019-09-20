@@ -20,15 +20,15 @@ import org.h2.jdbc.JdbcConnection;
  *
  * @author wiljo912
  */
-public class DbManageProducts implements ProductsCollectionDAOInterface {
+public class JDBCManageProducts implements ProductsDAOInterface {
 
     String dbURI = DbConnection.getDefaultConnectionUri();
 
-    public DbManageProducts() {
+    public JDBCManageProducts() {
 
     }
 
-    public DbManageProducts(String URI) {
+    public JDBCManageProducts(String URI) {
         this.dbURI = URI;
     }
 

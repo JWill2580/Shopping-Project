@@ -5,15 +5,15 @@
  */
 package gui;
 
-import dao.DbManageProducts;
+import dao.JDBCManageProducts;
 import dao.ProductCollectionDAO;
-import dao.ProductsCollectionDAOInterface;
 import domain.Product;
 import helpers.SimpleListModel;
 import java.util.ArrayList;
 import java.util.Collection;
 import javax.swing.JOptionPane;
 import javax.swing.ListModel;
+import dao.ProductsDAOInterface;
 
 
 /**
@@ -25,12 +25,12 @@ public class ViewProducts extends javax.swing.JDialog {
     private SimpleListModel myModel; 
     private SimpleListModel cmbModel;
     //DbManageProducts jdbcDAO = new DbManageProducts();
-    private final ProductsCollectionDAOInterface jdbcDAO;
+    private final ProductsDAOInterface jdbcDAO;
 
     /**
      * Creates new form ViewProducts
      */
-    public ViewProducts(java.awt.Frame parent, boolean modal, ProductsCollectionDAOInterface jdbcDAO) {
+    public ViewProducts(java.awt.Frame parent, boolean modal, ProductsDAOInterface jdbcDAO) {
         super(parent, modal);
         initComponents();
         

@@ -5,19 +5,19 @@
  */
 package gui;
 
-import dao.ProductsCollectionDAOInterface;
+import dao.ProductsDAOInterface;
 
 /**
  *
  * @author wiljo912
  */
 public class Mainmenu extends javax.swing.JFrame {
-    private final ProductsCollectionDAOInterface jdbcDAO;
+    private final ProductsDAOInterface jdbcDAO;
 
     /**
      * Creates new form Main menu
      */
-    public Mainmenu(ProductsCollectionDAOInterface jdbcDAO) {
+    public Mainmenu(ProductsDAOInterface jdbcDAO) {
         initComponents();
         this.jdbcDAO= jdbcDAO;
     }

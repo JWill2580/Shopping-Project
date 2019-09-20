@@ -9,7 +9,7 @@
  */
 create table CUSTOMER (
     Customer_ID varchar(50) not null auto_increment,
-    Username varchar(50) not null,
+    Username varchar(50) not null unique,
     First_Name varchar(50) not null,
     Surname varchar(50) not null,
     Password varchar(50) not null,

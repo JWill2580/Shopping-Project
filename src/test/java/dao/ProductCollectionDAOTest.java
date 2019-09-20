@@ -21,7 +21,7 @@ import static org.junit.Assert.*;
  */
 public class ProductCollectionDAOTest {
     //private ProductsCollectionDAOInterface dao = new ProductCollectionDAO();
-    private ProductsCollectionDAOInterface dao = new DbManageProducts(
+    private ProductsDAOInterface dao = new JDBCManageProducts(
 "jdbc:h2:mem:tests;INIT=runscript from 'src/main/resources/schema.sql'");
     
     private Product prodOne;

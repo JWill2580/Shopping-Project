@@ -6,11 +6,12 @@
 package web;
 
 import dao.CustomerCollectionDAO;
-import dao.DbManageProducts;
-import dao.ProductsCollectionDAOInterface;
+import dao.JDBCManageCustomers;
+import dao.JDBCManageProducts;
 import java.util.concurrent.CompletableFuture;
 import org.jooby.Jooby;
 import org.jooby.json.Gzon;
+import dao.ProductsDAOInterface;
 
 /**
  *
@@ -18,8 +19,8 @@ import org.jooby.json.Gzon;
  */
 public class Server extends Jooby {
 
-    private DbManageProducts db = new DbManageProducts();
-    private CustomerCollectionDAO custdb = new CustomerCollectionDAO();
+    private JDBCManageProducts db = new JDBCManageProducts();
+    private JDBCManageCustomers custdb = new JDBCManageCustomers();
 
     public Server() {
         port(8080);

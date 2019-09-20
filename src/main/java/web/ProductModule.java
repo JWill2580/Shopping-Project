@@ -5,8 +5,8 @@
  */
 package web;
 
-import dao.ProductsCollectionDAOInterface;
 import org.jooby.Jooby;
+import dao.ProductsDAOInterface;
 
 /**
  *
@@ -14,7 +14,7 @@ import org.jooby.Jooby;
  */
 public class ProductModule extends Jooby {
 
-    public ProductModule(ProductsCollectionDAOInterface db) {
+    public ProductModule(ProductsDAOInterface db) {
         get("/api/products", () -> db.getProducts());
         get("/api/products/:id", (req) -> {
             String id = req.param("id").value();

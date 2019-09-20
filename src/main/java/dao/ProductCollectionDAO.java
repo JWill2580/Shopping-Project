@@ -16,7 +16,7 @@ import java.util.Map;
  *
  * @author wiljo912
  */
-public class ProductCollectionDAO implements ProductsCollectionDAOInterface {
+public class ProductCollectionDAO implements ProductsDAOInterface {
     private static Collection<Product> products = new HashSet<>();
     private static Map<String, Product> productsMap = new HashMap<>();
     private static Multimap<String, Product> productsMM = ArrayListMultimap.create();

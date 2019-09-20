@@ -5,6 +5,57 @@
  */
 "use strict";
 
+class ShoppingCart {
+
+    constructor() {
+        this.saleItems = new Array();
+    }
+
+    reconstruct(sessionData) {
+        for (let SaleItem of sessionData.saleItems) {
+            this.addItem(Object.assign(new SaleItem(), SaleItem));
+        }
+    }
+
+    getItems() {
+        return this.SaleItem;
+    }
+
+    addItem(item) {
+        this.saleItems.push(item);
+    }
+
+    setCustomer(customer) {
+        this.customer = customer;
+    }
+
+    getTotal() {
+        let total = 0;
+        for (let item of this.SaleItem) {
+            total += item.getTotal();
+        }
+        return total;
+    }
+
+}
+
+class SaleItem {
+
+    constructor(product, quantity) {
+        // only set the fields if we have a valid product
+        if (product) {
+            this.product = product;
+            this.quantityPurchase = quantity;
+            this.salePrice = product.listPrice;
+        }
+    }
+
+    getItemTotal() {
+        return this.salePrice * this.quantityPurchase;
+    }
+
+}
+
 var module = angular.module('ShoppingApp', ['ngResource', 'ngStorage']);
 
 module.factory('productDAO', function ($resource) {//potential issue regarding naming of productDAO

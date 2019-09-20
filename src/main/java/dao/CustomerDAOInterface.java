@@ -11,7 +11,7 @@ import domain.Customer;
  *
  * @author wiljo912
  */
-public interface CustomerCollectionDAOInterface {
+public interface CustomerDAOInterface {
 
     void saveCustomer(Customer customer);
 

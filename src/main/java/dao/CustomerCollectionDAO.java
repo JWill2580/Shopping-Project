@@ -16,7 +16,7 @@ import java.util.Map;
  *
  * @author wiljo912
  */
-public class CustomerCollectionDAO implements CustomerCollectionDAOInterface {
+public class CustomerCollectionDAO implements CustomerDAOInterface {
 
     private static final Map<String, Customer> customers = new HashMap<>();
 

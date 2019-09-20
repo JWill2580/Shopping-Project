@@ -6,7 +6,6 @@
 package gui;
 
 
-import dao.ProductsCollectionDAOInterface;
 import domain.Product;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -25,6 +24,7 @@ import org.mockito.ArgumentCaptor;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import dao.ProductsDAOInterface;
 
 
 /**
@@ -32,7 +32,7 @@ import static org.mockito.Mockito.when;
  * @author admin
  */
 public class AddProductsTest {
-    private ProductsCollectionDAOInterface dao;
+    private ProductsDAOInterface dao;
     private DialogFixture fixture;
     private Robot robot;
     
@@ -49,7 +49,7 @@ public class AddProductsTest {
 	categories.add("Ninjitsu"); 
         
 	// create a mock for the DAO
-        dao = mock(ProductsCollectionDAOInterface.class);
+        dao = mock(ProductsDAOInterface.class);
         
         when(dao.getCategories()).thenReturn(categories);
     }
