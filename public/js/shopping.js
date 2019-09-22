@@ -178,10 +178,11 @@ module.controller('SaleController', function(cart, $sessionStorage, $window){
     }
     
     this.addToCart = function (quantity){
-        let product = $sessionStorage.selectedProduct;
-        let SaleItem = new SaleItem(product, quantity);
-        ShoppingCart.addItem(SaleItem);
-        $sessionStorage.cart =cart;
+        let selectedProduct = $sessionStorage.selectedProduct;
+        $sessionStorage.quantity = quantity;
+        let SaleItem = new SaleItem($sessionStorage.selectedProduct, $sessionStorage.quantity);
+        cart.addItem(SaleItem);
+        $sessionStorage.cart = cart;
         $window.location.href = 'view-products.html';   
     }
     

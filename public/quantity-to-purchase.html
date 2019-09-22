@@ -16,28 +16,43 @@ and open the template in the editor.
         <script src="js/ngStorage.min.js"></script>
         <script src="js/shopping.js"></script>
     </head>
-    <body ng-controller="ProductController as prodCtrl">
+    <body ng-controller="SaleController as saleCtrl">
 
-        <!--<div id="button-div"> 
-            <button type="button" onclick="window.location.href='index.html';">Home</button>
-            <button type="button" >Sign In</button>
-        </div>-->
+        
         
         <div ng-include="'menu.html'" ></div>
 
      
        
         <div id="page-header"><h1>How many do you want to buy?</h1></div>
-        
+
         <table>
-            <tr ng-repeat="">
-                <td></td>
-                <td></td>
+            <tr>
+                <td>ID:</td>
+                <td>{{saleCtrl.selectedProduct.productID}}</td>
             </tr>
-           
-            
+            <tr>
+                <td>Name:</td>
+                <td>{{saleCtrl.selectedProduct.name}}</td>
+            </tr>
+            <tr>
+                 <td>Description</td>
+                <td>{{saleCtrl.selectedProduct.description}}</td>
+            </tr>
+            <tr>
+                <td>Category:</td>
+                <td>{{saleCtrl.selectedProduct.category}}</td>
+            </tr>
+            <tr>
+                <td>Price:</td>
+                <td>{{saleCtrl.selectedProduct.listPrice}}</td>
+            </tr>
+            <tr>
+                <td>Quantity In Stock:</td>
+                <td>{{saleCtrl.selectedProduct.quantityInStock}}</td>
+            </tr>
         </table>
-        
+
         
         <fieldset>
             <legend>Quantity to buy</legend>
@@ -45,7 +60,7 @@ and open the template in the editor.
                 <div>
                     <label for="quantity">How many?</label>
                     <input type="text"  name="quantity" required style='width: 100px' ng-model="quantity">
-                    <button type="submit" ng-submit="">Add to Cart</button>
+                    <button type="submit" ng-click="saleCtrl.addToCart(quantity)">Add to Cart</button>
                 </div>
            
             </form>
