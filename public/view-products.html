@@ -38,20 +38,24 @@ and open the template in the editor.
         </div>
         
         <table>
-            <tr>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Price</th>
-                <th>Available</th>
-                <th>Purchase</th>
-            </tr>
-           <tr ng-repeat="product in prodCtrl.products">
-                <td>{{product.name}}</td>
-                <td>{{product.description}}</td>
-                <td>{{product.listPrice}}</td>
-                <td>{{product.quantityInStock}}</td>
-                <td><button>Buy</button></td>
-            </tr>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Available</th>
+                    <th>Purchase</th>
+                </tr>
+            </thead>
+            <tbody ng-controller="SaleController as saleCtrl">
+                <tr ng-repeat="product in prodCtrl.products">
+                    <td>{{product.name}}</td>
+                    <td>{{product.description}}</td>
+                    <td>{{product.listPrice}}</td>
+                    <td>{{product.quantityInStock}}</td>
+                    <td><button ng-click="saleCtrl.buyButton(product)">Buy</button></td>
+                </tr>
+            </tbody>
         </table>
         
         

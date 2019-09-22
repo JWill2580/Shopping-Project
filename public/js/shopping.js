@@ -5,40 +5,6 @@
  */
 "use strict";
 
-class ShoppingCart {
-
-    constructor() {
-        this.saleItems = new Array();
-    }
-
-    reconstruct(sessionData) {
-        for (let SaleItem of sessionData.saleItems) {
-            this.addItem(Object.assign(new SaleItem(), SaleItem));
-        }
-    }
-
-    getItems() {
-        return this.SaleItem;
-    }
-
-    addItem(item) {
-        this.saleItems.push(item);
-    }
-
-    setCustomer(customer) {
-        this.customer = customer;
-    }
-
-    getTotal() {
-        let total = 0;
-        for (let item of this.SaleItem) {
-            total += item.getTotal();
-        }
-        return total;
-    }
-
-}
-
 class SaleItem {
 
     constructor(product, quantity) {
@@ -55,6 +21,42 @@ class SaleItem {
     }
 
 }
+
+class ShoppingCart {
+
+    constructor() {
+        this.saleItems = new Array();
+    }
+
+    reconstruct(sessionData) {
+        for (let item of sessionData.items) {
+            this.addItem(Object.assign(new SaleItem(), item));
+        }
+    }
+
+    getItems() {
+        return this.saleItems;
+    }
+
+    addItem(item) {
+        this.saleItems.push(item);
+    }
+
+    setCustomer(customer) {
+        this.customer = customer;
+    }
+
+    getTotal() {
+        let total = 0;
+        for (let item of this.saleItems) {
+            total += item.getItemTotal();
+        }
+        return total;
+    }
+
+}
+
+
 
 var module = angular.module('ShoppingApp', ['ngResource', 'ngStorage']);
 
@@ -91,6 +93,7 @@ module.factory('registerDAO', function ($resource) {
 module.factory('signInDAO', function ($resource) {
     return $resource('/api/customers/:username');
 });
+
 
 
 module.controller('CustomerController', function (registerDAO, signInDAO, $window, $sessionStorage) {
@@ -141,4 +144,53 @@ module.controller('CustomerController', function (registerDAO, signInDAO, $windo
                       $sessionStorage.$reset();
                     };
                 });
+                
+/*Lab10*/
 
+module.factory('saleDAO', function ($resource) {
+    return $resource('/api/sales');
+});
+
+
+module.factory('cart', function ($sessionStorage) {
+    let cart = new ShoppingCart();
+
+    // is the cart in the session storage?
+    if ($sessionStorage.cart) {
+
+        // reconstruct the cart from the session data
+        cart.reconstruct($sessionStorage.cart);
+    }
+
+    return cart;
+});
+
+
+module.controller('SaleController', function(cart, $sessionStorage, $window){
+    this.items = cart.getItems();
+    this.total = cart.getTotal();
+    this.selectedProduct = $sessionStorage.selectedProduct;
+    
+    this.buyButton = function (selectedProduct) {
+        $sessionStorage.selectedProduct = selectedProduct;
+        $window.location.href = 'quantity-to-purchase.html';
+
+    }
+    
+    this.addToCart = function (quantity){
+        let product = $sessionStorage.selectedProduct;
+        let SaleItem = new SaleItem(product, quantity);
+        ShoppingCart.addItem(SaleItem);
+        $sessionStorage.cart =cart;
+        $window.location.href = 'view-products.html';   
+    }
+    
+    this.checkOut = function (cart){
+        let customer = $sessionStorage.customer;
+        cart.setCustomer(customer);
+        saleDAO.save(cart);
+        delete sessionStorage.cart;
+        $window.location.href = 'thank-you.html';   
+
+    }
+});

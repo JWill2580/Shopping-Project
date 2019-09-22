@@ -6,7 +6,7 @@ and open the template in the editor.
 -->
 <html ng-app="ShoppingApp">
     <head>
-        <title>Quantity to purchase</title>
+        <title>Thank You for your purchase</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="css/index.css">
@@ -17,38 +17,21 @@ and open the template in the editor.
         <script src="js/shopping.js"></script>
     </head>
     <body ng-controller="ProductController as prodCtrl">
-
-        <!--<div id="button-div"> 
-            <button type="button" onclick="window.location.href='index.html';">Home</button>
-            <button type="button" >Sign In</button>
-        </div>-->
         
+        <!--TODO Change Button layout currently set up so user has signed in, dynamic
+        <div id="button-div"> 
+            <button type="button" onclick="window.location.href='index.html';">Home</button>
+            <button type="button" >Browse Products</button>
+            <button type="button" >View Cart</button>
+            <button type="button" >Sign out</button>
+            
+            <p>Welcome User</p><!-- TODO make dynamic
+        </div>-->
         <div ng-include="'menu.html'" ></div>
 
-     
        
-        <div id="page-header"><h1>How many do you want to buy?</h1></div>
-        
-        <table>
-            <tr ng-repeat="">
-                <td></td>
-                <td></td>
-            </tr>
-           
-            
-        </table>
-        
-        
-        <fieldset>
-            <legend>Quantity to buy</legend>
-            <form action="/quantity-to-buy" method="post" >
-                <div>
-                    <label for="quantity">How many?</label>
-                    <input type="text"  name="quantity" required style='width: 100px' ng-model="quantity">
-                    <button type="submit" ng-submit="">Add to Cart</button>
-                </div>
-           
-            </form>
-        </fieldset>
+        <div id="page-header"><h1>Thank you for your purchase</h1></div>
+
     </body>
 </html>
+ 
