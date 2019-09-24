@@ -15,7 +15,7 @@ and open the template in the editor.
 
 #menu {
     margin: 0 auto;
-    width: 450px;
+    width: 600px;
     text-align: center;
 }
 
@@ -30,6 +30,12 @@ and open the template in the editor.
     height: 30px;
 }
 
+#cart-submit {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 #button-div p {
     margin-left: 20px;
     font-size: 12px;
@@ -40,6 +46,8 @@ and open the template in the editor.
 button {
     margin: 5px 5px 0px 5px;
 }
+
+
 
 #end-of-form-action-btn button{
     display: flex;

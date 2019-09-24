@@ -1,7 +1,7 @@
 <div id="menu" ng-controller="CustomerController as custCtrl" ng-init="custCtrl.checkSignIn()">
     <button onclick="window.location.href='index.html';">Home</button>
     <button onclick="window.location.href='view-products.html';" ng-if="custCtrl.signedIn">Browse Products</button>
-    <!--TODO<a href="cart.html" ng-if="custCtrl.signedIn">View Cart</a>-->
+    <button onclick="window.location.href='shopping-cart.html';" ng-if="custCtrl.signedIn">View Cart</button>
     <button onclick="window.location.href='#';" ng-if="custCtrl.signedIn" ng-click="custCtrl.signOut()">Sign Out</button>
     <button onclick="window.location.href='sign-in.html';" ng-if="!custCtrl.signedIn">Sign In</button>
     <div id="welcome" ><i>{{custCtrl.welcome}}</i></div>

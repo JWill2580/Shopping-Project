@@ -44,14 +44,14 @@ and open the template in the editor.
                     <th>Description</th>
                     <th>Price</th>
                     <th>Available</th>
-                    <th>Purchase</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody ng-controller="SaleController as saleCtrl">
                 <tr ng-repeat="product in prodCtrl.products">
                     <td>{{product.name}}</td>
                     <td>{{product.description}}</td>
-                    <td>{{product.listPrice}}</td>
+                    <td>{{product.listPrice}}</td> <!--TODO: make so has total and not just price of one -->
                     <td>{{product.quantityInStock}}</td>
                     <td><button ng-click="saleCtrl.buyButton(product)">Buy</button></td>
                 </tr>

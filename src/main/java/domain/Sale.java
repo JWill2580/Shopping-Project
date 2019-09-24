@@ -27,6 +27,10 @@ public class Sale {
         this.customer = customer;
     }
 
+    public ArrayList<SaleItem> getSaleItems() {
+        return saleItems;
+    }
+
     
     public Integer getSaleID() {
         return saleID;
@@ -67,4 +71,11 @@ public class Sale {
     public void addItem(SaleItem item){
         this.saleItems.add(item);
     }
+
+    @Override
+    public String toString() {
+        return "Sale{" + "date=" + date + ", status=" + status + ", saleItems=" + saleItems + ", customer=" + customer + '}';
+    }
+    
+    
 }

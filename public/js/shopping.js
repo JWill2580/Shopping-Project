@@ -187,8 +187,7 @@ module.controller('SaleController', function(cart, $sessionStorage, $window){
     }
     
     this.checkOut = function (cart){
-        let customer = $sessionStorage.customer;
-        cart.setCustomer(customer);
+        cart.setCustomer($sessionStorage.customer);
         saleDAO.save(cart);
         delete sessionStorage.cart;
         $window.location.href = 'thank-you.html';   

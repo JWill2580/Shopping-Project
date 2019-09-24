@@ -16,37 +16,42 @@ and open the template in the editor.
         <script src="js/ngStorage.min.js"></script>
         <script src="js/shopping.js"></script>
     </head>
+    
     <body ng-controller="SaleController as saleCtrl">
+    
+    <div ng-include="'menu.html'" ></div>
 
-        
-        
-        <div ng-include="'menu.html'" ></div>
-
-     
-       
         <div id="page-header"><h1>Shopping Cart</h1></div>
 
         <table>
+            <thead>
             <tr>
                 <th>Product</th>
                 <th>Price</th>
                 <th>Quantity</th>
                 <th>Total</th>
+                <th></th>
             </tr>
+            </thead>
             <tbody>
-                <tr ng-repeat="saleItem in saleCtrl.cart">
+                <tr ng-repeat="saleItem in saleCtrl.items">
                     <td>{{saleItem.name}}</td>
                     <td>{{saleItem.listPrice}}</td>
                     <td>{{saleItem.quantityPurchase}}</td>
                     <td>{{saleItem.salePrice}}</td>
-                    <td><button ng-click="saleCtrl.checkOut(total)">Buy</button></td>
                 </tr>
             </tbody>
+            <tfoot>
+                <tr>
+                    <td>Total:</td>
+                    <td>{{saleItem}}</td>
+                </tr>
+            </tfoot>
         </table>
 
 
-        <div>        
-            <button type="submit" ng-click="saleCtrl.checkout(cart)">Checkout Cart</button>
+        <div id="cart-submit">        
+            <button ng-click="saleCtrl.checkOut(saleItems)">Checkout Cart</button>
         </div>
 
 
