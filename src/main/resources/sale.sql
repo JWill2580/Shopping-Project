@@ -10,13 +10,12 @@
 
 create table SALE (
     Sale_ID varchar(50) not null auto_increment,
-    Date date(50) not null unique, /*Check this (date) in lab*/
-    First_Name varchar(50) not null,
+    Date_ date(50) not null unique, /*Check this (date) in lab*/
     Status varchar(50) not null,
-    /*Create Customer variable linking foreign keys*/
-    /*Create Sale Item collection variable linking foreign keys*/
+    Customer_ID varchar(50),
 
-
-    constraint Sale_ID primary key (Sale_ID)
+    constraint Sale_ID primary key (Sale_ID),
+    constraint Customer_FK foreign key(Customer_ID) references CUSTOMER
+    
 );
 

@@ -20,7 +20,7 @@ import java.util.logging.Logger;
  
 public class JDBCManageSales implements SalesDAOInterface {
  
-	private static final String url = "**** JDBC URL ****";
+	private static final String url = DbConnection.getDefaultConnectionUri(); //could be an issue here
  
 	@Override
 	public void save(Sale sale) {
@@ -29,14 +29,16 @@ public class JDBCManageSales implements SalesDAOInterface {
 		try {
 			try (
 					PreparedStatement insertOrderStmt = con.prepareStatement(
-							"**** SQL for saving Sale goes here ****",
+							"INSERT INTO SALE(Sale_ID, DATE_, Status, CUSTOMER_ID) values(?,?,?,?)",
+                                                        //"**** SQL for saving Sale goes here ****"
 							Statement.RETURN_GENERATED_KEYS);
  
 					PreparedStatement insertOrderItemStmt = con.prepareStatement(
-							"**** SQL for saving SaleItem goes here ****");
- 
+							"INSERT INTO SALEITEM(SALE_ID, PRODUCT_ID, QUANTITY_PURCHASED, SALE_PRICE)");
+                                                        //** SQL for saving SaleItem goes here ****
 					PreparedStatement updateProductStmt = con.prepareStatement(
-							"**** SQL for updating product quantity goes here ****");
+                                                        //TODO, do by with JOIN so that quanitity bought is taken into account 
+							"UPDATE Products SET QUANTITY_IN_STOCK = QUANTITY_IN_STOCK - 1");
  
 					) {
  

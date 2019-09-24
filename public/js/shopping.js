@@ -178,7 +178,6 @@ module.controller('SaleController', function(cart, $sessionStorage, $window){
     }
     
     this.addToCart = function (quantity){
-        let selectedProduct = $sessionStorage.selectedProduct;
         $sessionStorage.quantity = quantity;
         let saleItem = new SaleItem($sessionStorage.selectedProduct, $sessionStorage.quantity);
         cart.addItem(saleItem);
