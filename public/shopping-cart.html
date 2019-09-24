@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html ng-app="ShoppingApp">
+    <head>
+        <title>Quantity to purchase</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="css/index.css">
+        
+        <script src="js/angular.min.js"></script>
+        <script src="js/angular-resource.min.js"></script>
+        <script src="js/ngStorage.min.js"></script>
+        <script src="js/shopping.js"></script>
+    </head>
+    <body ng-controller="SaleController as saleCtrl">
+
+        
+        
+        <div ng-include="'menu.html'" ></div>
+
+     
+       
+        <div id="page-header"><h1>Shopping Cart</h1></div>
+
+        <table>
+            <tr>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Total</th>
+            </tr>
+            <tbody>
+                <tr ng-repeat="saleItem in saleCtrl.cart">
+                    <td>{{saleItem.name}}</td>
+                    <td>{{saleItem.listPrice}}</td>
+                    <td>{{saleItem.quantityPurchase}}</td>
+                    <td>{{saleItem.salePrice}}</td>
+                    <td><button ng-click="saleCtrl.checkOut(total)">Buy</button></td>
+                </tr>
+            </tbody>
+        </table>
+
+
+        <div>        
+            <button type="submit" ng-click="saleCtrl.checkout(cart)">Checkout Cart</button>
+        </div>
+
+
+    </body>
+</html>

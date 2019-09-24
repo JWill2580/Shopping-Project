@@ -29,7 +29,7 @@ class ShoppingCart {
     }
 
     reconstruct(sessionData) {
-        for (let item of sessionData.items) {
+        for (let item of sessionData.saleItems) {
             this.addItem(Object.assign(new SaleItem(), item));
         }
     }
@@ -180,8 +180,8 @@ module.controller('SaleController', function(cart, $sessionStorage, $window){
     this.addToCart = function (quantity){
         let selectedProduct = $sessionStorage.selectedProduct;
         $sessionStorage.quantity = quantity;
-        let SaleItem = new SaleItem($sessionStorage.selectedProduct, $sessionStorage.quantity);
-        cart.addItem(SaleItem);
+        let saleItem = new SaleItem($sessionStorage.selectedProduct, $sessionStorage.quantity);
+        cart.addItem(saleItem);
         $sessionStorage.cart = cart;
         $window.location.href = 'view-products.html';   
     }
@@ -192,6 +192,5 @@ module.controller('SaleController', function(cart, $sessionStorage, $window){
         saleDAO.save(cart);
         delete sessionStorage.cart;
         $window.location.href = 'thank-you.html';   
-
     }
 });

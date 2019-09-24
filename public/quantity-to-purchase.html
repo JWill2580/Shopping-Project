@@ -56,10 +56,10 @@ and open the template in the editor.
         
         <fieldset>
             <legend>Quantity to buy</legend>
-            <form action="/quantity-to-buy" method="post" >
+            <form>
                 <div>
                     <label for="quantity">How many?</label>
-                    <input type="text"  name="quantity" required style='width: 100px' ng-model="quantity">
+                    <input type="number"  name="quantity" required style='width: 100px' ng-model="quantity">
                     <button type="submit" ng-click="saleCtrl.addToCart(quantity)">Add to Cart</button>
                 </div>
            
