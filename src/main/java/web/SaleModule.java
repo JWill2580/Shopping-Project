@@ -16,8 +16,9 @@ import org.jooby.Status;
  */
 public class SaleModule extends Jooby {
     public SaleModule(SalesDAOInterface db) {
-        get("/api/sales", (req, rsp) -> { 
+        post("/api/sales", (req, rsp) -> { 
             Sale sale = req.body().to(Sale.class);
+            sale.setStatus("pending");
             db.save(sale);
             rsp.status(Status.CREATED);
             System.out.println(sale.toString());

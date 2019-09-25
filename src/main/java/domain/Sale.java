@@ -17,7 +17,7 @@ public class Sale {
     private static Integer saleID;
     private LocalDate date;
     private String status;
-    private ArrayList<SaleItem> saleItems = new ArrayList<SaleItem>();
+    private final ArrayList<SaleItem> saleItems = new ArrayList<SaleItem>();
     private Customer customer; 
 
     public Sale(LocalDate date, String status, SaleItem item, Customer customer) {

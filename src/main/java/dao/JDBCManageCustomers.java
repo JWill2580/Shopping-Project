@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -34,25 +35,31 @@ public class JDBCManageCustomers implements CustomerDAOInterface {
 
     @Override
     public void saveCustomer(Customer aCustomer) {
-        String statement = "insert into CUSTOMER(CUSTOMER_ID, USERNAME, FIRST_NAME, SURNAME, PASSWORD, EMAIL, SHIPPING) values(?,?,?,?,?,?,?)";
+        String statement = "insert into CUSTOMER(USERNAME, FIRST_NAME, SURNAME, PASSWORD, EMAIL, SHIPPING) values(?,?,?,?,?,?)";
 
         try (
                 // get connection to database
                 Connection dbCon = DbConnection.getConnection(
                         DbConnection.getDefaultConnectionUri());
                 // create the statement
-                PreparedStatement stmt = dbCon.prepareStatement(statement);) {
+                PreparedStatement stmt = dbCon.prepareStatement(statement, Statement.RETURN_GENERATED_KEYS);) {
             // copy the data from the student domain object into the SQL parameters
-            stmt.setString(1, aCustomer.getCustomerID());
-            stmt.setString(2, aCustomer.getUsername());
-            stmt.setString(3, aCustomer.getFirstname());
-            stmt.setString(4, aCustomer.getSurname());
-            stmt.setString(5, aCustomer.getPassword());
-            stmt.setString(6, aCustomer.getEmail());
-            stmt.setString(7, aCustomer.getShipping());
-
+                  
+            stmt.setString(1, aCustomer.getUsername());
+            stmt.setString(2, aCustomer.getFirstname());
+            stmt.setString(3, aCustomer.getSurname());
+            stmt.setString(4, aCustomer.getPassword());
+            stmt.setString(5, aCustomer.getEmail());
+            stmt.setString(6, aCustomer.getShipping());
+            
             stmt.executeUpdate();  // execute the statement
 
+            ResultSet rs = stmt.getGeneratedKeys();
+            rs.next();
+            System.out.println(rs.getString(1));
+
+            
+            
         } catch (SQLException ex) {  // we are forced to catch SQLException
             // don't let the SQLException leak from our DAO encapsulation
             throw new DAOException(ex.getMessage(), ex);
@@ -76,6 +83,7 @@ public class JDBCManageCustomers implements CustomerDAOInterface {
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
+                String customer_ID = rs.getString("CUSTOMER_ID");
                 String username = rs.getString("USERNAME");
                 String firstname = rs.getString("FIRST_NAME");
                 String surname = rs.getString("SURNAME");
@@ -83,7 +91,7 @@ public class JDBCManageCustomers implements CustomerDAOInterface {
                 String email = rs.getString("EMAIL");
                 String shipping = rs.getString("SHIPPING");
 
-                return new Customer(username, firstname,
+                return new Customer(customer_ID, username, firstname,
                         surname, password, email, shipping);
             } else {
                 return null;

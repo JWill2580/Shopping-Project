@@ -5,13 +5,11 @@
  */
 package web;
 
-import dao.CustomerCollectionDAO;
-import dao.JDBCManageCustomers;
-import dao.JDBCManageProducts;
+
 import java.util.concurrent.CompletableFuture;
 import org.jooby.Jooby;
 import org.jooby.json.Gzon;
-import dao.ProductsDAOInterface;
+import dao.*;
 
 /**
  *
@@ -20,8 +18,10 @@ import dao.ProductsDAOInterface;
 public class Server extends Jooby {
 
     private JDBCManageProducts db = new JDBCManageProducts();
-    private JDBCManageCustomers custdb = new JDBCManageCustomers();
 
+    private JDBCManageCustomers custdb = new JDBCManageCustomers();
+    private JDBCManageSales saledb = new JDBCManageSales();
+   
     public Server() {
         port(8080);
         //get("/", () -> "Hello World");
@@ -29,6 +29,7 @@ public class Server extends Jooby {
         use(new Gzon());        
         use(new ProductModule(db));
         use(new CustomerModule(custdb)); 
+        use(new SaleModule(saledb));
         use(new AssetModule());
 
 }

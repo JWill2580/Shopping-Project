@@ -166,7 +166,7 @@ module.factory('cart', function ($sessionStorage) {
 });
 
 
-module.controller('SaleController', function(cart, $sessionStorage, $window){
+module.controller('SaleController', function(cart, $sessionStorage, $window, saleDAO){
     this.items = cart.getItems();
     this.total = cart.getTotal();
     this.selectedProduct = $sessionStorage.selectedProduct;
@@ -185,7 +185,7 @@ module.controller('SaleController', function(cart, $sessionStorage, $window){
         $window.location.href = 'view-products.html';   
     }
     
-    this.checkOut = function (cart){
+    this.checkOut = function (){
         cart.setCustomer($sessionStorage.customer);
         saleDAO.save(cart);
         delete sessionStorage.cart;

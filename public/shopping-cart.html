@@ -19,7 +19,7 @@ and open the template in the editor.
     
     <body ng-controller="SaleController as saleCtrl">
     
-    <div ng-include="'menu.html'" ></div>
+    <div ng-include="'menu.html'"></div>
 
         <div id="page-header"><h1>Shopping Cart</h1></div>
 
@@ -35,8 +35,8 @@ and open the template in the editor.
             </thead>
             <tbody>
                 <tr ng-repeat="saleItem in saleCtrl.items">
-                    <td>{{saleItem.name}}</td>
-                    <td>{{saleItem.listPrice}}</td>
+                    <td>{{saleItem.product.name}}</td>
+                    <td>{{saleItem.product.listPrice}}</td>
                     <td>{{saleItem.quantityPurchase}}</td>
                     <td>{{saleItem.salePrice}}</td>
                 </tr>
@@ -53,7 +53,5 @@ and open the template in the editor.
         <div id="cart-submit">        
             <button ng-click="saleCtrl.checkOut(saleItems)">Checkout Cart</button>
         </div>
-
-
     </body>
 </html>

@@ -29,17 +29,15 @@ public class JDBCManageSales implements SalesDAOInterface {
 		try {
 			try (
 					PreparedStatement insertOrderStmt = con.prepareStatement(
-							"INSERT INTO SALE(Sale_ID, DATE_, Status, CUSTOMER_ID) values(?,?,?,?)",
-                                                        //"**** SQL for saving Sale goes here ****"
-							Statement.RETURN_GENERATED_KEYS);
+							"INSERT INTO SALE(DATE, Status, CUSTOMER_ID) values(?,?,?)",
+                                                        //"**** SQL for saving Sale goes here ****"                                               
+							Statement.RETURN_GENERATED_KEYS);                                
  
 					PreparedStatement insertOrderItemStmt = con.prepareStatement(
-							"INSERT INTO SALEITEM(SALE_ID, PRODUCT_ID, QUANTITY_PURCHASED, SALE_PRICE)");
+							"INSERT INTO SALEITEM(SALE_ID, PRODUCT_ID, QUANTITY_PURCHASED, SALE_PRICE) values(?,?,?,?)");
                                                         //** SQL for saving SaleItem goes here ****
 					PreparedStatement updateProductStmt = con.prepareStatement(
-                                                        //TODO, do by with JOIN so that quanitity bought is taken into account 
-							"UPDATE Products SET QUANTITY_IN_STOCK = QUANTITY_IN_STOCK - 1");
- 
+							"UPDATE Product SET QUANTITY_IN_STOCK = QUANTITY_IN_STOCK - ? WHERE(PRODUCT_ID = ?)");
 					) {
  
 				// since saving and order involves multiple statements across
@@ -66,8 +64,11 @@ public class JDBCManageSales implements SalesDAOInterface {
 				// write code here that saves the timestamp and username in the
 				// sale table using the insertOrderStmt statement.
 				// ****
- 
- 
+                                insertOrderStmt.setTimestamp(1, timestamp);
+                                insertOrderStmt.setString(2, sale.getStatus());
+                                insertOrderStmt.setString(3, customer.getCustomerID()); //
+                                insertOrderStmt.executeUpdate();
+
 				// get the auto-generated order ID from the database
 				ResultSet rs = insertOrderStmt.getGeneratedKeys();
  
@@ -88,20 +89,29 @@ public class JDBCManageSales implements SalesDAOInterface {
 				// write code here that iterates through the order items and
 				// saves them using the insertOrderItemStmt statement.
 				// ****
- 
- 
+
 				// ## update the product quantities ## //
 				for (SaleItem item : items) {
- 
-					Product product = item.getProduct();
- 
- 
-					// ****
-					// write code here that updates the product quantity using
-					// the using the updateProductStmt statement.
-					// ****
- 
- 
+	
+                                    Product product = item.getProduct();
+                                    
+                                    System.out.println(sale.toString());
+                                    System.out.println(orderId);
+                                    System.out.println(insertOrderItemStmt);
+                                    System.out.println(item.toString());
+                                    
+                                    insertOrderItemStmt.setInt(1, orderId);
+                                    insertOrderItemStmt.setString(2, product.getProductID());
+                                    insertOrderItemStmt.setBigDecimal(3, item.getQuantityPurchase());
+                                    insertOrderItemStmt.setBigDecimal(4, item.getSalePrice());  
+                                    insertOrderItemStmt.executeUpdate();
+                                    // ****
+                                    // write code here that updates the product quantity using
+                                    // the using the updateProductStmt statement.
+                                    // ****
+                                    updateProductStmt.setBigDecimal(1, item.getQuantityPurchase());  
+                                    updateProductStmt.setString(2, product.getProductID());  
+                                    updateProductStmt.executeUpdate();
 				}
  
 				// commit the transaction
