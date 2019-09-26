@@ -1,0 +1,80 @@
+@startuml
+skinparam guillemet false
+skinparam classAttributeIconSize 0
+skinparam linetype ortho
+skinparam style strictuml
+skinparam sequenceParticipant underline
+hide circle
+
+title Customer viewing product page
+
+actor "Customer" as customer
+
+create "view-products.html" as browser <<html>>
+activate browser
+customer->browser: <<UI event>> clicks button to view-products.html
+
+participant "Product Controller" as prodCtrl <<AngularJS>>
+
+browser->prodCtrl: categoryDAO.query()
+activate prodCtrl
+
+participant "Product Module" as module <<Jooby Module>>
+prodCtrl->module: request for categories
+activate module
+
+participant "JDBCManageProducts" as dao <<JDBC DAO>>
+
+module->dao: get("/api/categories", () -> db.getCategories());
+
+activate dao
+database "Database" as db <<SQL Database>>
+
+dao->db : "select distinct CATEGORY from PRODUCT order by CATEGORY"
+activate db
+dao<--db: ResultSet rs
+deactivate db
+dao->dao: create Collection<String> from ResultSet
+module<--dao: Collection<String>
+deactivate dao
+
+prodCtrl<--module: JSON object/s
+deactivate module
+
+browser<--prodCtrl: JSON object/s
+deactivate prodCtrl
+browser->browser: render objects in html
+
+
+
+
+
+browser->prodCtrl: productDAO.query()
+activate prodCtrl
+
+prodCtrl->module: request for products
+activate module
+
+
+module->dao: get("/api/products", () -> db.getProducts());
+
+activate dao
+
+dao->db : "select * from PRODUCT order by PRODUCT_ID"
+activate db
+dao<--db: ResultSet rs
+deactivate db
+dao->dao: create Collection<String> from ResultSet
+module<--dao: Collection<String>
+deactivate dao
+
+prodCtrl<--module: JSON object/s
+deactivate module
+
+browser<--prodCtrl: JSON object/s
+deactivate prodCtrl
+browser->browser: render objects in html
+
+customer<--browser: display render output to user
+
+@enduml
