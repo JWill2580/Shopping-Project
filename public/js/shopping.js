@@ -188,7 +188,7 @@ module.controller('SaleController', function(cart, $sessionStorage, $window, sal
     this.checkOut = function (){
         cart.setCustomer($sessionStorage.customer);
         saleDAO.save(cart);
-        delete sessionStorage.cart;
+        delete $sessionStorage.cart;
         $window.location.href = 'thank-you.html';   
     }
 });

@@ -34,13 +34,12 @@ create table CUSTOMER (
 
 create table SALE (
     Sale_ID integer auto_increment,
-    Date timestamp not null, /*Check this (date) in lab*/
+    Date timestamp not null,
     Status varchar(50) not null,
     Customer_ID varchar(50),
 
     constraint Sale_ID primary key (Sale_ID),
-    constraint Customer_FK foreign key(Customer_ID) references CUSTOMER
-    
+    constraint Customer_FK foreign key(Customer_ID) references CUSTOMER  
 );
 
 create table SALEITEM (
@@ -49,8 +48,6 @@ create table SALEITEM (
     Quantity_Purchased decimal(5,2) not null,
     Sale_Price decimal(5,2) not null,
 
-    /*Create  product linking foreign keys*/
-    /*Create Sale Item collection variable linking foreign keys*/
     constraint Sale_Item_PK primary key(Sale_ID, Product_ID), 
     constraint Sale_FK foreign key(Sale_ID) references SALE,
     constraint Product_FK foreign key(Product_ID) references PRODUCT

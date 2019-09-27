@@ -43,7 +43,6 @@ deactivate module
 
 browser<--prodCtrl: JSON object/s
 deactivate prodCtrl
-browser->browser: render objects in html
 
 
 
@@ -78,3 +77,4 @@ browser->browser: render objects in html
 customer<--browser: display render output to user
 
 @enduml
+

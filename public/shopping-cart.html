@@ -36,15 +36,15 @@ and open the template in the editor.
             <tbody>
                 <tr ng-repeat="saleItem in saleCtrl.items">
                     <td>{{saleItem.product.name}}</td>
-                    <td>{{saleItem.product.listPrice}}</td>
+                    <td>{{saleItem.product.listPrice | currency}}</td>
                     <td>{{saleItem.quantityPurchase}}</td>
-                    <td>{{saleItem.salePrice}}</td>
+                    <td>{{saleItem.salePrice | currency}}</td>
                 </tr>
             </tbody>
             <tfoot>
                 <tr>
-                    <td>Total:</td>
-                    <td>{{total}}</td>
+                    <td><b>Total Cost:</b></td>
+                    <td colspan="3" id="total-data">{{saleCtrl.total | currency}}</td>
                 </tr>
             </tfoot>
         </table>

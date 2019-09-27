@@ -17,16 +17,7 @@ and open the template in the editor.
         <script src="js/shopping.js"></script>
     </head>
     <body ng-controller="ProductController as prodCtrl">
-        
-        <!--TODO Change Button layout currently set up so user has signed in, dynamic
-        <div id="button-div"> 
-            <button type="button" onclick="window.location.href='index.html';">Home</button>
-            <button type="button" >Browse Products</button>
-            <button type="button" >View Cart</button>
-            <button type="button" >Sign out</button>
-            
-            <p>Welcome User</p><!-- TODO make dynamic
-        </div>-->
+ 
         <div ng-include="'menu.html'" ></div>
 
        
@@ -51,14 +42,12 @@ and open the template in the editor.
                 <tr ng-repeat="product in prodCtrl.products">
                     <td>{{product.name}}</td>
                     <td>{{product.description}}</td>
-                    <td>{{product.listPrice}}</td> <!--TODO: make so has total and not just price of one -->
+                    <td>{{product.listPrice | currency}}</td> <!--TODO: make so has total and not just price of one -->
                     <td>{{product.quantityInStock}}</td>
                     <td><button ng-click="saleCtrl.buyButton(product)">Buy</button></td>
                 </tr>
             </tbody>
-        </table>
-        
-        
+        </table>      
     </body>
 </html>
  
