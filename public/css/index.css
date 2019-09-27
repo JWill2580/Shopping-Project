@@ -20,6 +20,10 @@ and open the template in the editor.
   width: 450px;
 }
 
+#under-img p{
+    text-align: center;
+}
+
 #menu {
     margin: 0 auto;
     width: 600px;
