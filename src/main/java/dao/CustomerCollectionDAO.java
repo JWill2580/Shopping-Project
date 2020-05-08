@@ -26,7 +26,7 @@ public class CustomerCollectionDAO implements CustomerDAOInterface {
             Customer boris = new Customer();
             boris.setUsername("boris");
             boris.setFirstname("Boris");
-            boris.setSurname("McNorris");
+            boris.setSurname("McNorriss");
             boris.setPassword("guest");
             boris.setShipping("123 Some Street,\nNorth East Valley,\nDunedin");
             boris.setEmail("boris@example.net");
