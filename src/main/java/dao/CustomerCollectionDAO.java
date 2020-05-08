@@ -13,7 +13,7 @@ import java.util.HashSet;
 import java.util.Map;
 
 /**
- *
+ *Hello there
  * @author wiljo912
  */
 public class CustomerCollectionDAO implements CustomerDAOInterface {

@@ -19,7 +19,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
  
 public class JDBCManageSales implements SalesDAOInterface {
- 
+    
 	private static final String url = DbConnection.getDefaultConnectionUri(); //could be an issue here
  
 	@Override

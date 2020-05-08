@@ -73,7 +73,7 @@ module.factory('categoryDAO', function ($resource) {
 
 module.controller('ProductController', function (productDAO, categoryDAO) {
     /*alert("in controller");*/
-    this.products = productDAO.query();
+    this.products = productDAO.query()();
     this.categories = categoryDAO.query();
 
     // click handler for the category filter buttons
@@ -82,7 +82,7 @@ module.controller('ProductController', function (productDAO, categoryDAO) {
     };
     this.allCategories = function () {
         this.products = productDAO.query();
-    }
+    };
 
 });
 
@@ -175,7 +175,7 @@ module.controller('SaleController', function(cart, $sessionStorage, $window, sal
         $sessionStorage.selectedProduct = selectedProduct;
         $window.location.href = 'quantity-to-purchase.html';
 
-    }
+    };
     
     this.addToCart = function (quantity){
         $sessionStorage.quantity = quantity;
@@ -183,12 +183,12 @@ module.controller('SaleController', function(cart, $sessionStorage, $window, sal
         cart.addItem(saleItem);
         $sessionStorage.cart = cart;
         $window.location.href = 'view-products.html';   
-    }
+    };
     
     this.checkOut = function (){
         cart.setCustomer($sessionStorage.customer);
         saleDAO.save(cart);
         delete $sessionStorage.cart;
         $window.location.href = 'thank-you.html';   
-    }
+    };
 });
